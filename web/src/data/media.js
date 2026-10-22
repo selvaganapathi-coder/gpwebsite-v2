@@ -1,0 +1,241 @@
+export const BLOG_POSTS = [
+  {
+    "id": "career-paths-bpharm",
+    "title": "Career Paths After B.Pharm",
+    "excerpt": "Industry, hospital pharmacy, higher studies, and regulatory roles — how GP graduates map their next step.",
+    "date": "2026-08-28",
+    "author": "Training & Placement Cell",
+    "image": "https://gppharmacycollege.com/wp-content/uploads/2025/03/G.P.Pharmacy-College32.jpg",
+    "href": "placements.html"
+  },
+  {
+    "id": "lab-life-pharmaceutics",
+    "title": "Inside the Pharmaceutics Lab",
+    "excerpt": "Formulation practice, equipment readiness, and what first-year students learn on day one in the lab.",
+    "date": "2026-08-14",
+    "author": "Dept. of Pharmaceutics",
+    "image": "https://gppharmacycollege.com/wp-content/uploads/2025/03/Pharmaceutics-lab.jpg",
+    "href": "departments.html"
+  },
+  {
+    "id": "counselling-code-889",
+    "title": "Counselling Code 889 — What Parents Should Know",
+    "excerpt": "A clear guide to TN paramedical counselling, documents, and how to reach the admissions office.",
+    "date": "2026-07-30",
+    "author": "Admissions Office",
+    "image": "https://gppharmacycollege.com/wp-content/uploads/2025/03/G.P.Pharmacy-College4.jpg",
+    "href": "admissions.html"
+  },
+  {
+    "id": "campus-life-tirupattur",
+    "title": "Campus Life in Tirupattur",
+    "excerpt": "Library hours, hostel rhythm, transport, and the everyday culture of India’s next-gen pharmacy campus.",
+    "date": "2026-07-12",
+    "author": "Student Affairs",
+    "image": "https://gppharmacycollege.com/wp-content/uploads/2025/03/G.P.Pharmacy-College28.jpg",
+    "href": "campus.html"
+  },
+  {
+    "id": "pci-approved-programs",
+    "title": "PCI Approved Programs at a Glance",
+    "excerpt": "D.Pharm, B.Pharm, M.Pharm, and Pharm-D — approvals, affiliation, and what each pathway prepares you for.",
+    "date": "2026-06-20",
+    "author": "Academic Office",
+    "image": "https://gppharmacycollege.com/wp-content/uploads/2025/03/G.P.Pharmacy-College21.jpg",
+    "href": "courses.html"
+  },
+  {
+    "id": "pharmacy-week-reflections",
+    "title": "Pharmacy Week: Celebrating the Profession",
+    "excerpt": "Seminars, competitions, and community awareness — how students mark Pharmacy Week on campus.",
+    "date": "2026-06-05",
+    "author": "Campus Media",
+    "image": "https://gppharmacycollege.com/wp-content/uploads/2025/03/G.P.Pharmacy-College23.jpg",
+    "href": "gallery.html"
+  }
+]
+
+export const MAGAZINE_CATEGORIES = [
+  { id: 'all', label: 'All' },
+  { id: 'editorial', label: 'Editorial' },
+  { id: 'campus-life', label: 'Campus Life' },
+  { id: 'academics', label: 'Academics' },
+  { id: 'research', label: 'Research & Labs' },
+  { id: 'practice', label: 'Pharmacy Practice' },
+  { id: 'careers', label: 'Careers' },
+  { id: 'culture', label: 'Culture & Sports' },
+  { id: 'creative', label: 'Creative Writing' },
+]
+
+export const MAGAZINE_ISSUES = [
+  {
+    id: 'pharmaceutica-2026',
+    title: 'GP Pharmaceutica',
+    issue: 'Annual Edition 2026',
+    year: '2026',
+    type: 'annual',
+    desc: 'Campus life, research notes, student writing, and faculty reflections from the academic year.',
+    cover: 'https://gppharmacycollege.com/wp-content/uploads/2025/03/G.P.Pharmacy-College26.jpg',
+    featured: true,
+  },
+  {
+    id: 'pharmaceutica-2025',
+    title: 'GP Pharmaceutica',
+    issue: 'Annual Edition 2025',
+    year: '2025',
+    type: 'annual',
+    desc: 'Highlights from placements, industrial visits, and pharmacy practice training.',
+    cover: 'https://gppharmacycollege.com/wp-content/uploads/2025/03/G.P.Pharmacy-College20.jpg',
+  },
+  {
+    id: 'pharmaceutica-special',
+    title: 'GP Pharmaceutica',
+    issue: 'Special Issue — Research',
+    year: '2025',
+    type: 'special',
+    desc: 'Student projects, lab innovations, and department research snapshots.',
+    cover: 'https://gppharmacycollege.com/wp-content/uploads/2025/03/Pharmaceutics-lab.jpg',
+  },
+]
+
+/** Category-wise magazine articles for easy browsing. */
+export const MAGAZINE_ARTICLES = [
+  {
+    id: 'mag-ed-1',
+    category: 'editorial',
+    issueId: 'pharmaceutica-2026',
+    title: 'From the Principal’s desk',
+    author: 'Prof. Dr. S. Thenmozhi',
+    excerpt:
+      'A message on academic integrity, PCI standards, and the spirit of GP Pharmaceutica for the new edition.',
+  },
+  {
+    id: 'mag-ed-2',
+    category: 'editorial',
+    issueId: 'pharmaceutica-2026',
+    title: 'Editor’s note — GP Pharmaceutica',
+    author: 'Magazine Editorial Board',
+    excerpt: 'How this year’s magazine is organised category-wise for students, parents, and alumni.',
+  },
+  {
+    id: 'mag-cl-1',
+    category: 'campus-life',
+    issueId: 'pharmaceutica-2026',
+    title: 'A day on the Jolarpet campus',
+    author: 'Student reporters',
+    excerpt: 'Library hours, hostel routines, and the quiet energy of pharmacy practicals.',
+  },
+  {
+    id: 'mag-cl-2',
+    category: 'campus-life',
+    issueId: 'pharmaceutica-2025',
+    title: 'Hostel notes & peer mentoring',
+    author: 'Hostel committee',
+    excerpt: 'How seniors support first-year students through counselling code 889 journeys.',
+  },
+  {
+    id: 'mag-ac-1',
+    category: 'academics',
+    issueId: 'pharmaceutica-2026',
+    title: 'M.Pharm tracks that shape practice',
+    author: 'Academics cell',
+    excerpt: 'Pharmaceutics, Pharmaceutical Analysis, and Regulatory Affairs — seats, labs, and outcomes.',
+  },
+  {
+    id: 'mag-ac-2',
+    category: 'academics',
+    issueId: 'pharmaceutica-2025',
+    title: 'Pharm-D clinical learning diary',
+    author: 'Department of Pharmacy Practice',
+    excerpt: 'Ward rounds and case discussions that connect classroom theory to patient care.',
+  },
+  {
+    id: 'mag-rs-1',
+    category: 'research',
+    issueId: 'pharmaceutica-special',
+    title: 'Formulation projects from the Pharmaceutics lab',
+    author: 'M.Pharm scholars',
+    excerpt: 'Snapshots of novel delivery ideas developed under faculty guidance.',
+  },
+  {
+    id: 'mag-rs-2',
+    category: 'research',
+    issueId: 'pharmaceutica-special',
+    title: 'Analytical method stories',
+    author: 'Pharmaceutical Analysis',
+    excerpt: 'HPLC and QC habits that students carry into industry placements.',
+  },
+  {
+    id: 'mag-rs-3',
+    category: 'research',
+    issueId: 'pharmaceutica-2026',
+    title: 'AMC – PvPI on campus',
+    author: 'ADR Monitoring Centre',
+    excerpt: 'How G.P. Pharmacy College supports Tirupattur District as an AMC under PvPI.',
+  },
+  {
+    id: 'mag-pp-1',
+    category: 'practice',
+    issueId: 'pharmaceutica-2026',
+    title: 'Hospital training at Tirupattur',
+    author: 'Pharmacy Practice',
+    excerpt: 'Clinical exposure that builds confidence in counselling and medication review.',
+  },
+  {
+    id: 'mag-pp-2',
+    category: 'practice',
+    issueId: 'pharmaceutica-2025',
+    title: 'Community pharmacy outreach',
+    author: 'NSS & Practice team',
+    excerpt: 'Medicine awareness camps and patient education drives near Jolarpet.',
+  },
+  {
+    id: 'mag-cr-1',
+    category: 'careers',
+    issueId: 'pharmaceutica-2025',
+    title: 'Placement season reflections',
+    author: 'Training & Placement',
+    excerpt: 'Interview prep, industrial visits, and first roles in pharma and hospitals.',
+  },
+  {
+    id: 'mag-cr-2',
+    category: 'careers',
+    issueId: 'pharmaceutica-2026',
+    title: 'Alumni voices — where pharmacy takes you',
+    author: 'Alumni cell',
+    excerpt: 'Short notes from graduates in industry, academia, and clinical practice.',
+  },
+  {
+    id: 'mag-cu-1',
+    category: 'culture',
+    issueId: 'pharmaceutica-2026',
+    title: 'National Pharmacy Week highlights',
+    author: 'Cultural committee',
+    excerpt: 'Rallies, quizzes, and celebrations that put pharmacy profession front and centre.',
+  },
+  {
+    id: 'mag-cu-2',
+    category: 'culture',
+    issueId: 'pharmaceutica-2025',
+    title: 'Sports meet & campus fest',
+    author: 'Sports committee',
+    excerpt: 'Team spirit beyond the lab benches — matches, cheers, and medals.',
+  },
+  {
+    id: 'mag-cw-1',
+    category: 'creative',
+    issueId: 'pharmaceutica-2026',
+    title: 'Poems from the pharmacy corridor',
+    author: 'Student poets',
+    excerpt: 'Verses on molecules, mentors, and monsoon mornings at college.',
+  },
+  {
+    id: 'mag-cw-2',
+    category: 'creative',
+    issueId: 'pharmaceutica-2025',
+    title: 'Photo essay — labs in light',
+    author: 'Photography club',
+    excerpt: 'A visual walk through pharmaceutics, chemistry, and pharmacology spaces.',
+  },
+]
+

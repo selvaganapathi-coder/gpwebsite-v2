@@ -1,0 +1,315 @@
+/**
+ * Responsive foundation — mobile-first system for the React site
+ * Covers: fluid type, breakpoints, touch, a11y, media, reduced motion, SEO-friendly layout
+ */
+
+:root {
+  /* Breakpoints — aligned with GP Pharmacy College screen plan */
+  --bp-mobile-sm: 375px;
+  --bp-mobile: 480px;
+  --bp-tablet: 768px;
+  --bp-laptop: 1024px;
+  --bp-desktop: 1280px;
+  --bp-wide: 1440px;
+  --bp-xlarge: 1920px;
+
+  /* Legacy aliases */
+  --bp-xs: 375px;
+  --bp-sm: 480px;
+  --bp-md: 640px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+  --bp-2xl: 1440px;
+
+  /* Fluid type */
+  --fs-body: clamp(0.9375rem, 0.9rem + 0.2vw, 1.025rem);
+  --fs-small: clamp(0.8rem, 0.78rem + 0.1vw, 0.875rem);
+  --fs-h1: clamp(1.55rem, 1.15rem + 2vw, 2.65rem);
+  --fs-h2: clamp(1.35rem, 1.1rem + 1.2vw, 2.1rem);
+  --fs-h3: clamp(1.1rem, 1.02rem + 0.5vw, 1.4rem);
+  --lh-body: 1.6;
+  --lh-heading: 1.2;
+
+  /* Touch & a11y */
+  --touch-min: 44px;
+  --focus-ring: 0 0 0 3px rgba(196, 163, 90, 0.55);
+
+  /* Dynamic viewport */
+  --vvh: 100vh;
+  --vvh: 100dvh;
+}
+
+html {
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  overflow-x: clip;
+}
+
+img,
+video,
+iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Fluid media embeds (YouTube / maps) */
+.video-embed,
+.map-wrap,
+.responsive-embed {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #1a080a;
+}
+
+.video-embed iframe,
+.map-wrap iframe,
+.responsive-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Aspect-ratio helpers */
+.aspect-square { aspect-ratio: 1; }
+.aspect-video { aspect-ratio: 16 / 9; }
+.aspect-photo { aspect-ratio: 4 / 3; }
+
+/* Fluid containers already use clamp in responsive.css — reinforce */
+.container {
+  width: min(100% - 0px, var(--container-max, 1140px));
+}
+
+/* Touch-friendly interactive targets */
+.btn,
+.hero__arrow,
+.hero__dot,
+.notice-filter,
+.gallery-filter,
+.dept-tab,
+.page-subnav__link,
+.about-subnav__link,
+.media-subnav__link,
+.hub-subnav__link,
+.academics-subnav__link,
+.placement-subnav__link {
+  min-height: var(--touch-min);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: clamp(1rem, 2.5vw, 1.35rem);
+}
+
+/* Focus indicators */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* Form fields — mobile keyboard friendly */
+input,
+select,
+textarea {
+  font-size: max(1rem, 16px); /* prevents iOS zoom */
+  max-width: 100%;
+}
+
+.form-group,
+.contact-form__grid {
+  min-width: 0;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea,
+#contactForm input,
+#contactForm select,
+#contactForm textarea {
+  width: 100%;
+  min-height: var(--touch-min);
+  box-sizing: border-box;
+}
+
+#contactForm textarea {
+  min-height: 8rem;
+}
+
+/* Hero — fluid height across devices */
+.hero--home,
+.hero--srec {
+  min-height: min(70dvh, 620px);
+  min-height: min(70svh, 620px);
+}
+
+@media (max-width: 640px) {
+  .hero--home,
+  .hero--srec {
+    min-height: min(78svh, 560px);
+  }
+
+  .hero--home .hero__title {
+    max-width: 100% !important;
+  }
+
+  .hero--home .hero__actions {
+    width: 100%;
+  }
+
+  .hero--home .hero__actions .btn {
+    min-height: var(--touch-min);
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero--home,
+  .hero--srec {
+    min-height: min(100svh, 420px);
+  }
+
+  .page-hero {
+    padding-block: 1rem;
+  }
+}
+
+/* Course / resource / research cards — equal height grids */
+.home-courses__grid,
+.resource-grid,
+.research-cards,
+.programs-grid {
+  align-items: stretch;
+}
+
+.home-course-tile,
+.resource-card,
+.research-card {
+  height: 100%;
+}
+
+/* Gallery — responsive densify */
+.advanced-gallery-grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 160px), 1fr));
+}
+
+@media (max-width: 640px) {
+  .advanced-gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .advanced-gallery-item--wide,
+  .advanced-gallery-item--large,
+  .advanced-gallery-item--tall {
+    grid-column: span 1;
+    grid-row: span 1;
+    aspect-ratio: 1;
+    min-height: 0;
+  }
+}
+
+@media (min-width: 1100px) {
+  .advanced-gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+}
+
+/* Footer — stack cleanly; avoid cramped columns */
+@media (max-width: 900px) {
+  .footer__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1.25rem;
+  }
+
+  .footer__portals {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .footer__grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .footer__portals {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Sticky header safe areas */
+.site-header,
+.page-subnav,
+.about-subnav,
+.media-subnav,
+.hub-subnav,
+.academics-subnav {
+  padding-left: env(safe-area-inset-left, 0);
+  padding-right: env(safe-area-inset-right, 0);
+}
+
+/* Large screens — keep readable measure */
+@media (min-width: 1400px) {
+  .section__desc,
+  .hub-audience__lead,
+  .research-hero__desc,
+  .about-discover__prose {
+    max-width: 48rem;
+  }
+}
+
+/* Print — disclosure / content pages */
+@media print {
+  .site-header,
+  .announcement,
+  .mobile-dock,
+  .page-subnav,
+  .about-subnav,
+  .media-subnav,
+  .hub-subnav,
+  .page-cta-band,
+  .hero__arrow,
+  .hero__dots {
+    display: none !important;
+  }
+
+  body {
+    color: #000;
+    background: #fff;
+  }
+
+  a[href]::after {
+    content: none;
+  }
+}
+
+/* Reduced motion — global */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

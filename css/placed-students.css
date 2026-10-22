@@ -1,0 +1,301 @@
+﻿/**
+ * Placed Students page — SREC-inspired year cards & name lists
+ */
+
+.placement-subnav {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 4px 16px rgba(31, 31, 31, 0.04);
+  position: sticky;
+  top: var(--header-sticky-offset, 0);
+  z-index: 50;
+}
+
+.placement-subnav__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 0.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.placement-subnav__list::-webkit-scrollbar {
+  display: none;
+}
+
+.placement-subnav__link {
+  display: block;
+  padding: 0.95rem 1.15rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-light);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.placement-subnav__link:hover {
+  color: var(--red-dark);
+  background: var(--bg-soft);
+}
+
+.placement-subnav__link.active {
+  color: var(--red-deep);
+  border-bottom-color: var(--yellow);
+  background: linear-gradient(180deg, var(--bg-soft) 0%, #fff 100%);
+}
+
+.page-hero--placed {
+  background:
+    linear-gradient(135deg, rgba(31, 31, 31, 0.82) 0%, rgba(168, 0, 0, 0.78) 100%),
+    url('https://gppharmacycollege.com/wp-content/uploads/2025/03/G.P.Pharmacy-College22.jpg') center / cover no-repeat;
+  padding-block: clamp(3rem, 7vw, 5rem) clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.page-hero--placed .page-hero__title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.placed-intro {
+  padding-block: clamp(2rem, 4vw, 3rem);
+  text-align: center;
+}
+
+.placed-intro__title {
+  font-size: clamp(1.25rem, 3vw, 1.65rem);
+  font-weight: 600;
+  color: var(--primary-deep);
+  margin: 0 0 0.75rem;
+  font-family: var(--font-display);
+}
+
+.placed-intro__divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  max-width: 260px;
+  margin: 0 auto;
+}
+
+.placed-intro__divider::before,
+.placed-intro__divider::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--red-deep));
+}
+
+.placed-intro__divider::after {
+  background: linear-gradient(90deg, var(--red-deep), transparent);
+}
+
+.placed-intro__divider span {
+  width: 7px;
+  height: 7px;
+  background: var(--red-deep);
+  transform: rotate(45deg);
+}
+
+.placed-intro__divider span:nth-child(2) {
+  background: var(--yellow);
+}
+
+.placed-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.25rem, 3vw, 2rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  max-width: 980px;
+  margin-inline: auto;
+}
+
+.placed-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 50px 50px 0 0;
+  overflow: hidden;
+  box-shadow: 0 10px 32px rgba(31, 31, 31, 0.07);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  animation: placedCardIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.placed-card:nth-child(2) { animation-delay: 0.1s; }
+.placed-card:nth-child(3) { animation-delay: 0.2s; }
+
+.placed-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 48px rgba(168, 0, 0, 0.12);
+}
+
+.placed-card__body {
+  padding: clamp(1.5rem, 3vw, 2rem) 1.5rem 1.25rem;
+  text-align: center;
+}
+
+.placed-card__year {
+  font-size: clamp(1.15rem, 2.5vw, 1.35rem);
+  font-weight: 800;
+  color: var(--red-deep);
+  margin: 0 0 0.5rem;
+}
+
+.placed-card__count {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-light);
+  margin: 0;
+}
+
+.placed-card__count strong {
+  display: block;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 800;
+  color: var(--primary-deep);
+  line-height: 1.15;
+  margin-bottom: 0.15rem;
+}
+
+.placed-card__action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: none;
+  background: linear-gradient(135deg, var(--red-deep) 0%, var(--red-dark) 100%);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: filter 0.25s ease, transform 0.25s ease;
+}
+
+.placed-card__action:hover {
+  filter: brightness(1.08);
+}
+
+.placed-card__action[aria-expanded="true"] {
+  background: linear-gradient(135deg, var(--primary-deep) 0%, var(--red-deep) 100%);
+}
+
+.placed-card__action-icon {
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  font-size: 0.75rem;
+}
+
+.placed-card__list {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  background: var(--bg-soft);
+  border-top: 1px solid var(--border);
+}
+
+.placed-card__list.is-open {
+  max-height: 520px;
+  overflow-y: auto;
+}
+
+.placed-card__list-inner {
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.placed-card__list-note {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  margin: 0 0 0.75rem;
+  text-align: center;
+}
+
+.placed-student-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.placed-student-table th,
+.placed-student-table td {
+  padding: 0.55rem 0.4rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(31, 31, 31, 0.06);
+}
+
+.placed-student-table th {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--red-dark);
+}
+
+.placed-student-table tr:last-child td {
+  border-bottom: none;
+}
+
+.placed-student-table td:last-child {
+  color: var(--text-light);
+  font-size: 0.75rem;
+}
+
+.placed-footer-note {
+  text-align: center;
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+  color: var(--text-light);
+  font-size: 0.875rem;
+}
+
+.placed-footer-note a {
+  color: var(--red-deep);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.placed-footer-note a:hover {
+  text-decoration: underline;
+}
+
+@keyframes placedCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 900px) {
+  .placed-grid {
+    grid-template-columns: 1fr;
+    max-width: 22rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .placed-card {
+    animation: none;
+  }
+
+  .placed-card:hover {
+    transform: none;
+  }
+
+  .placed-card__list {
+    transition: none;
+  }
+}
+

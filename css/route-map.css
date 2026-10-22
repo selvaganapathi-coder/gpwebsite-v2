@@ -1,0 +1,305 @@
+﻿/**
+ * Route Map — QR directions, map, transport
+ */
+
+.route-page {
+  padding-block: clamp(2.25rem, 4.5vw, 3.5rem);
+  background:
+    radial-gradient(ellipse 70% 45% at 100% 0%, rgba(196, 163, 90, 0.07), transparent 55%),
+    linear-gradient(180deg, #faf8f5 0%, #fff 60%);
+}
+
+.route-qr-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.25rem, 3vw, 1.75rem);
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.route-qr {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.route-qr__index {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 600;
+  line-height: 1;
+  color: rgba(196, 163, 90, 0.4);
+  margin-bottom: 0.5rem;
+}
+
+.route-qr__frame {
+  display: flex;
+  padding: 0.85rem;
+  background: #fff;
+  border: 1px solid rgba(61, 8, 14, 0.1);
+  border-top: 3px solid var(--gold, #c4a35a);
+  margin-bottom: 1rem;
+}
+
+.route-qr__frame img {
+  width: clamp(140px, 16vw, 180px);
+  height: clamp(140px, 16vw, 180px);
+  display: block;
+  object-fit: contain;
+}
+
+.route-qr__label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-dark, #9a7d3a);
+  margin-bottom: 0.3rem;
+}
+
+.route-qr__title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--crimson-deep, #3d080e);
+  margin: 0 0 0.45rem;
+  line-height: 1.2;
+}
+
+.route-qr__desc {
+  margin: 0 0 0.85rem;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--text-light, #5c534c);
+  max-width: 28ch;
+}
+
+.route-qr__link {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--crimson, #6e1018);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(196, 163, 90, 0.5);
+  transition: border-color 0.2s ease;
+}
+
+.route-qr__link:hover {
+  border-bottom-color: var(--gold, #c4a35a);
+}
+
+/* How to reach */
+.route-reach__grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(1.5rem, 3.5vw, 2.75rem);
+  align-items: start;
+}
+
+.route-reach__title {
+  font-family: var(--font-display) !important;
+  font-size: clamp(1.65rem, 3vw, 2.15rem) !important;
+  font-weight: 600 !important;
+  color: var(--crimson-deep, #3d080e);
+  margin: 0 0 1.25rem;
+}
+
+.route-reach__title::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 2px;
+  margin-top: 0.75rem;
+  background: linear-gradient(90deg, var(--gold, #c4a35a), transparent);
+}
+
+.route-reach__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.route-reach__list li {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.95rem 0;
+  border-top: 1px solid rgba(61, 8, 14, 0.09);
+}
+
+.route-reach__list li:last-child {
+  border-bottom: 1px solid rgba(61, 8, 14, 0.09);
+}
+
+.route-reach__list strong {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-dark, #9a7d3a);
+}
+
+.route-reach__list span {
+  font-size: 0.94rem;
+  line-height: 1.65;
+  color: var(--crimson-deep, #3d080e);
+}
+
+.route-reach__address {
+  padding: clamp(1.35rem, 3vw, 1.75rem);
+  background: linear-gradient(155deg, #2a060a 0%, #3d080e 45%, #6e1018 100%);
+  color: #fff;
+}
+
+.route-reach__address h3 {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem;
+  color: var(--gold-bright, #d4b86a);
+}
+
+.route-reach__address p {
+  margin: 0 0 1.25rem;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  opacity: 0.92;
+}
+
+.route-reach__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+/* Map embed */
+.route-map-embed__frame {
+  margin-top: 1.25rem;
+  overflow: hidden;
+  border: 1px solid rgba(61, 8, 14, 0.1);
+  background: #2a1216;
+  aspect-ratio: 21 / 9;
+  min-height: 280px;
+}
+
+.route-map-embed__frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Transport */
+.route-transport__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.25rem, 2.5vw, 1.75rem);
+  margin-top: 1.5rem;
+}
+
+.route-transport__item h3 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--crimson-deep, #3d080e);
+  margin: 0 0 0.4rem;
+}
+
+.route-transport__item p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-light, #5c534c);
+}
+
+.route-transport__cta {
+  margin-top: 1.75rem;
+}
+
+/* Legacy class hooks (static HTML) */
+.route-map-intro {
+  padding-block: clamp(2rem, 4vw, 2.75rem);
+}
+
+.route-map-intro__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  color: var(--crimson-deep, #3d080e);
+  margin: 0 0 0.5rem;
+}
+
+.route-map-intro__desc {
+  color: var(--text-light);
+  max-width: 42rem;
+  margin: 0;
+  line-height: 1.65;
+}
+
+.route-qr-card {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  text-align: left;
+}
+
+.route-qr-card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.route-qr-card__frame {
+  display: inline-flex;
+  padding: 0.85rem;
+  background: #fff;
+  border: 1px solid rgba(61, 8, 14, 0.1);
+  border-top: 3px solid var(--gold, #c4a35a);
+  border-radius: 0;
+  margin-bottom: 1rem;
+}
+
+.route-qr-card__frame img {
+  width: clamp(140px, 16vw, 180px);
+  height: clamp(140px, 16vw, 180px);
+}
+
+.route-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.route-details__block {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+.route-address {
+  background: linear-gradient(155deg, #2a060a 0%, #3d080e 45%, #6e1018 100%);
+  color: #fff;
+  border-radius: 0;
+  padding: clamp(1.35rem, 3vw, 1.75rem);
+}
+
+@media (max-width: 900px) {
+  .route-qr-grid,
+  .route-transport__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .route-reach__grid,
+  .route-details {
+    grid-template-columns: 1fr;
+  }
+
+  .route-map-embed__frame {
+    aspect-ratio: 16 / 10;
+  }
+}

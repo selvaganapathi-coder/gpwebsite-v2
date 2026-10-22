@@ -1,0 +1,549 @@
+/**
+ * Alumni Portal — crimson/gold layout aligned with placement portal
+ */
+
+.alumni-portal-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr);
+  gap: clamp(1.25rem, 3vw, 2rem);
+  padding: clamp(1.35rem, 3vw, 2rem);
+  background: #fff;
+  border: 1px solid var(--border, rgba(61, 8, 14, 0.1));
+  border-top: 3px solid var(--gold, #c4a35a);
+  border-radius: 8px;
+  box-shadow: var(--shadow, 0 2px 12px rgba(26, 18, 16, 0.06));
+}
+
+.alumni-portal-hero__title {
+  margin: 0.35rem 0 0.65rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 3vw, 2.1rem);
+  font-weight: 600;
+  color: var(--crimson-deep, #3d080e);
+}
+
+.alumni-portal-hero__desc {
+  margin: 0 0 0.85rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--text-light, #5c534c);
+  max-width: 48ch;
+}
+
+.alumni-portal-hero__erp {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--gold-dark, #9a7d3a);
+}
+
+.alumni-portal-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.alumni-portal-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 1rem 0.95rem;
+  background: var(--bg-soft, #f4f1ec);
+  border-radius: 6px;
+  text-align: center;
+  min-height: 5.5rem;
+  justify-content: center;
+}
+
+.alumni-portal-stat strong {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--crimson, #6e1018);
+  line-height: 1.1;
+}
+
+.alumni-portal-stat span {
+  font-size: 0.75rem;
+  color: var(--text-light, #5c534c);
+  line-height: 1.35;
+}
+
+.alumni-modules-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.alumni-module {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1.1rem 1rem;
+  background: #fff;
+  border: 1px solid var(--border, rgba(61, 8, 14, 0.1));
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  min-height: 7rem;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.alumni-module:hover {
+  border-color: var(--gold, #c4a35a);
+  transform: translateY(-2px);
+}
+
+.alumni-module__icon {
+  font-size: 1.15rem;
+  margin-bottom: 0.35rem;
+}
+
+.alumni-module strong {
+  font-size: 0.95rem;
+  color: var(--crimson-deep, #3d080e);
+}
+
+.alumni-module small {
+  font-size: 0.78rem;
+  color: var(--text-light, #5c534c);
+}
+
+.alumni-register-panel {
+  background: #fff;
+  border: 1px solid var(--border, rgba(61, 8, 14, 0.1));
+  border-top: 3px solid var(--gold, #c4a35a);
+  border-radius: 8px;
+  padding: clamp(1.15rem, 2.5vw, 1.5rem);
+}
+
+.admission-form .form-group {
+  margin-bottom: 0.85rem;
+}
+
+.admission-form label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--crimson-deep, #3d080e);
+}
+
+.admission-form input,
+.admission-form select,
+.admission-form textarea {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--border, rgba(61, 8, 14, 0.15));
+  border-radius: 6px;
+  background: #fff;
+  color: var(--ink, #1a1210);
+}
+
+.admission-form input:focus,
+.admission-form select:focus,
+.admission-form textarea:focus {
+  outline: 2px solid rgba(196, 163, 90, 0.45);
+  border-color: var(--gold, #c4a35a);
+}
+
+.admission-form .form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.fee-panel__check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.875rem;
+  color: var(--text-light, #5c534c);
+  cursor: pointer;
+}
+
+.fee-panel__check input {
+  width: auto;
+  margin-top: 0.2rem;
+}
+
+.admission-success {
+  text-align: center;
+  padding: 1.5rem 1rem;
+}
+
+.admission-success__icon {
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto 0.85rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--gold-soft, #f5efe0);
+  color: var(--crimson, #6e1018);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.admission-erp-note {
+  font-size: 0.8rem;
+  color: var(--gold-dark, #9a7d3a);
+}
+
+.alumni-directory-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.alumni-card {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  padding: 1rem;
+  background: #fff;
+  border: 1px solid var(--border, rgba(61, 8, 14, 0.1));
+  border-radius: 8px;
+}
+
+.alumni-card__avatar {
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--crimson-deep, #3d080e);
+  color: var(--gold, #c4a35a);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.alumni-card__body {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.alumni-card__body strong {
+  color: var(--crimson-deep, #3d080e);
+  font-size: 0.95rem;
+}
+
+.alumni-card__batch,
+.alumni-card__loc {
+  font-size: 0.75rem;
+  color: var(--gold-dark, #9a7d3a);
+}
+
+.alumni-card__body p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--text-light, #5c534c);
+  line-height: 1.45;
+}
+
+.alumni-stories {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.alumni-story-card {
+  position: relative;
+  padding: 1.25rem 1.15rem;
+  background: #fff;
+  border: 1px solid var(--border, rgba(61, 8, 14, 0.1));
+  border-top: 3px solid var(--gold, #c4a35a);
+  border-radius: 8px;
+}
+
+.alumni-story-card__quote {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  line-height: 1;
+  color: var(--gold, #c4a35a);
+  opacity: 0.55;
+}
+
+.alumni-story-card p {
+  margin: 0.35rem 0 1rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-light, #5c534c);
+}
+
+.alumni-story-card footer {
+  font-size: 0.8rem;
+  color: var(--crimson-deep, #3d080e);
+}
+
+.research-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.research-list__item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1rem 1.1rem;
+  background: #fff;
+  border: 1px solid var(--border, rgba(61, 8, 14, 0.1));
+  border-radius: 8px;
+}
+
+.research-list__year {
+  flex-shrink: 0;
+  font-size: 1.25rem;
+}
+
+.research-list__item strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--crimson-deep, #3d080e);
+}
+
+.research-list__item p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-light, #5c534c);
+  line-height: 1.5;
+}
+
+.events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 720px;
+  margin-inline: auto;
+}
+
+.event-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 1.1rem;
+  background: #fff;
+  border: 1px solid var(--border, rgba(61, 8, 14, 0.1));
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.event-card:hover {
+  border-color: var(--gold, #c4a35a);
+  transform: translateY(-2px);
+}
+
+.event-card__date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.5rem;
+  padding: 0.55rem 0.45rem;
+  background: var(--crimson-deep, #3d080e);
+  color: var(--gold, #c4a35a);
+  border-radius: 6px;
+  text-align: center;
+}
+
+.event-card__month {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.event-card__day {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.event-card__cat {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold-dark, #9a7d3a);
+}
+
+.event-card__body strong {
+  display: block;
+  margin-bottom: 0.2rem;
+  color: var(--crimson-deep, #3d080e);
+}
+
+.event-card__body p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-light, #5c534c);
+}
+
+.research-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.research-card {
+  padding: 1.15rem 1.05rem;
+  background: #fff;
+  border: 1px solid var(--border, rgba(61, 8, 14, 0.1));
+  border-top: 3px solid var(--gold, #c4a35a);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.research-card__icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.research-card h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+  color: var(--crimson-deep, #3d080e);
+}
+
+.research-card p {
+  margin: 0 0 0.65rem;
+  font-size: 0.85rem;
+  color: var(--text-light, #5c534c);
+  line-height: 1.5;
+}
+
+.research-card__tag {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--crimson, #6e1018);
+  background: var(--gold-soft, #f5efe0);
+  padding: 0.3rem 0.55rem;
+  border-radius: 3px;
+}
+
+.checklist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.checklist li {
+  position: relative;
+  padding-left: 1.35rem;
+  font-size: 0.9rem;
+  color: var(--text-light, #5c534c);
+  line-height: 1.5;
+}
+
+.checklist li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.45rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--gold, #c4a35a);
+}
+
+.fee-panel {
+  background: #fff;
+  border: 1px solid var(--border, rgba(61, 8, 14, 0.1));
+  border-top: 3px solid var(--crimson, #6e1018);
+  border-radius: 8px;
+  padding: 1.25rem 1.2rem;
+}
+
+.fee-panel h3 {
+  margin: 0 0 1rem;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--crimson-deep, #3d080e);
+}
+
+.fee-panel__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--border, rgba(61, 8, 14, 0.08));
+  font-size: 0.9rem;
+}
+
+.fee-panel__row--total {
+  border-bottom: none;
+  font-weight: 600;
+}
+
+.fee-panel__note {
+  margin: 0.85rem 0 1rem;
+  font-size: 0.78rem;
+  color: var(--gold-dark, #9a7d3a);
+}
+
+.fee-panel__pay {
+  width: 100%;
+  justify-content: center;
+}
+
+.placement-panel__link {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--crimson, #6e1018);
+  text-decoration: none;
+}
+
+.placement-panel__link:hover {
+  color: var(--gold-dark, #9a7d3a);
+}
+
+.section__title--left {
+  text-align: left !important;
+}
+
+.section__title--left::after {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
+@media (max-width: 900px) {
+  .alumni-portal-hero,
+  .alumni-modules-grid,
+  .alumni-directory-grid,
+  .alumni-stories,
+  .research-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .alumni-portal-stats,
+  .admission-form .form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .alumni-portal-stats,
+  .admission-form .form-grid {
+    grid-template-columns: 1fr;
+  }
+}

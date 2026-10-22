@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#6e1018">
+  <meta name="format-detection" content="telephone=yes">
+  <title>Admin CMS | G.P. Pharmacy College</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0;500;0;600;0;700;1;500&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://gppharmacycollege.com/wp-content/uploads/2025/03/cropped-GP-Logo-32x32.png">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/design.css">
+  <link rel="stylesheet" href="css/advanced.css">
+  <link rel="stylesheet" href="css/signal.css">
+  <link rel="stylesheet" href="css/mobile.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/theme.css" media="(min-width: 901px)">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="cms-body">
+
+  <!-- Login Screen -->
+  <div id="cmsLogin" class="cms-login">
+    <div class="cms-login__card">
+      <div class="cms-login__logo">
+        <img src="https://gppharmacycollege.com/wp-content/uploads/2025/03/cropped-GP-Logo-32x32.png" alt="GP Logo">
+        <h1>GP Pharmacy CMS</h1>
+        <p>Content Management System</p>
+      </div>
+      <div id="loginError" class="cms-login__error"></div>
+      <form id="loginForm" class="cms-form">
+        <div class="cms-field">
+          <label for="loginEmail">Email</label>
+          <input type="email" id="loginEmail" required placeholder="admin@gppharmacycollege.com" autocomplete="username">
+        </div>
+        <div class="cms-field">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" required placeholder="Enter password" autocomplete="current-password">
+        </div>
+        <button type="submit" class="cms-btn cms-btn--primary" style="width:100%;padding:0.75rem">Sign In</button>
+      </form>
+      <p class="cms-login__hint">Demo: admin@gppharmacycollege.com / gpadmin2026<br>College staff can update website content without developer help.</p>
+    </div>
+  </div>
+
+  <!-- Admin App -->
+  <div id="cmsApp" class="cms-app" hidden>
+    <aside id="cmsSidebar" class="cms-sidebar">
+      <div class="cms-sidebar__brand">
+        <img src="https://gppharmacycollege.com/wp-content/uploads/2025/03/cropped-GP-Logo-32x32.png" alt="">
+        <div>
+          <strong>GP Pharmacy</strong>
+          <small>Admin CMS</small>
+        </div>
+      </div>
+      <nav id="cmsNav" class="cms-nav" aria-label="Admin navigation"></nav>
+      <div class="cms-sidebar__footer">
+        <a href="index.html" target="_blank">↗ View Website</a>
+        <button type="button" id="logoutBtn" class="cms-nav__link" style="opacity:.8">🚪 Sign Out</button>
+      </div>
+    </aside>
+
+    <div class="cms-main">
+      <header class="cms-topbar">
+        <div class="cms-topbar__left">
+          <button type="button" id="menuToggle" class="cms-menu-toggle" aria-label="Toggle menu">☰</button>
+          <h1 id="pageTitle" class="cms-topbar__title">Dashboard</h1>
+        </div>
+        <div class="cms-topbar__actions">
+          <span id="userBadge" class="cms-user-badge"></span>
+          <button type="button" id="exportBtn" class="cms-btn cms-btn--outline cms-btn--sm">Export</button>
+        </div>
+      </header>
+      <main id="cmsContent" class="cms-content"></main>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="cmsModalOverlay" class="cms-modal-overlay">
+    <div class="cms-modal" role="dialog" aria-modal="true">
+      <div class="cms-modal__head">
+        <h3 id="modalTitle">Edit</h3>
+        <button type="button" id="modalClose" class="cms-modal__close" aria-label="Close">&times;</button>
+      </div>
+      <div id="modalBody" class="cms-modal__body"></div>
+    </div>
+  </div>
+
+  <div id="cmsToast" class="cms-toast"></div>
+
+  <script src="js/security.js"></script>
+  <script src="js/notices-data.js"></script>
+  <script src="js/achievements-data.js"></script>
+  <script src="js/gallery-data.js"></script>
+  <script src="js/cms-api-config.js"></script>
+  <script src="js/cms-api.js"></script>
+  <script src="js/cms-media-config.js"></script>
+  <script src="js/cms-media.js"></script>
+  <script src="js/cms-store.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

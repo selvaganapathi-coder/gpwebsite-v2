@@ -1,0 +1,492 @@
+/**
+ * GP Pharmacy — dense section rhythm + refined motion
+ * Crimson / gold only. Respects prefers-reduced-motion.
+ */
+
+:root {
+  --section-space: clamp(2.75rem, 4.5vw, 4rem);
+  --section-space-mobile: 2.15rem;
+  --section-y: var(--section-space);
+  --section-header-gap: 1.1rem;
+  --grid-gap: clamp(0.85rem, 1.5vw, 1.25rem);
+  --anim-duration: 0.65s;
+  --anim-delay: 0.04s;
+  --anim-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --anim-ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --smoke: #f5f5f5;
+}
+
+/* ─── Compact .space rhythm ─── */
+.space,
+.space-top {
+  padding-top: var(--section-space) !important;
+}
+
+.space,
+.space-bottom {
+  padding-bottom: var(--section-space) !important;
+}
+
+.space-extra,
+.space-extra-top {
+  padding-top: calc(var(--section-space) + 0.75rem) !important;
+}
+
+.space-extra,
+.space-extra-bottom {
+  padding-bottom: calc(var(--section-space) + 0.75rem) !important;
+}
+
+.bg-smoke {
+  background-color: var(--smoke) !important;
+}
+
+.section {
+  padding-block: var(--section-space);
+}
+
+.section__header {
+  margin-bottom: var(--section-header-gap);
+}
+
+@media (max-width: 991px) {
+  :root {
+    --section-y: var(--section-space-mobile);
+  }
+
+  .space,
+  .space-top {
+    padding-top: var(--section-space-mobile) !important;
+  }
+
+  .space,
+  .space-bottom {
+    padding-bottom: var(--section-space-mobile) !important;
+  }
+
+  .section {
+    padding-block: var(--section-space-mobile);
+  }
+}
+
+/* ─── Title area ─── */
+.title-area {
+  margin-bottom: 1.25rem;
+}
+
+.sub-title,
+.home-section-eyebrow {
+  display: block;
+  margin: 0 0 0.35rem;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-dark, #9a7d3a);
+}
+
+.sec-title,
+.section__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--crimson-deep, #3d080e);
+  line-height: 1.2;
+}
+
+.title_border {
+  width: 110px;
+  height: 12px;
+  margin: 0.35rem auto 1rem;
+  background:
+    radial-gradient(circle closest-side, var(--crimson, #6e1018) 55%, transparent 56%) 18% 55% / 5px 5px no-repeat,
+    radial-gradient(circle closest-side, var(--crimson, #6e1018) 55%, transparent 56%) 50% 55% / 5px 5px no-repeat,
+    radial-gradient(circle closest-side, var(--crimson, #6e1018) 55%, transparent 56%) 82% 55% / 5px 5px no-repeat,
+    linear-gradient(var(--crimson, #6e1018), var(--crimson, #6e1018)) 0 40% / 100% 1.5px no-repeat,
+    linear-gradient(var(--crimson, #6e1018), var(--crimson, #6e1018)) 0 70% / 100% 1.5px no-repeat;
+  opacity: 0;
+  transform: scaleX(0.2);
+  transform-origin: center;
+  transition:
+    opacity 0.55s var(--anim-ease) 0.12s,
+    transform 0.55s var(--anim-ease) 0.12s;
+}
+
+.title_border--left {
+  margin-left: 0;
+  margin-right: auto;
+  transform-origin: left center;
+}
+
+.fade-up.visible .title_border,
+.slideinup.visible .title_border,
+.visible .title_border,
+.as-animated .title_border,
+.title_border.anim-reveal.visible,
+.title_border.anim-reveal.as-animated {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+/* ─── Scroll reveal (short travel, snappy) ─── */
+.fade-up,
+.slideinup,
+.anim-reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity var(--anim-duration) var(--anim-ease),
+    transform var(--anim-duration) var(--anim-ease);
+  transition-delay: var(--anim-delay);
+  will-change: opacity, transform;
+}
+
+.fade-up.visible,
+.slideinup.visible,
+.anim-reveal.visible,
+.fade-up.as-animated,
+.slideinup.as-animated,
+.anim-reveal.as-animated {
+  opacity: 1;
+  transform: none;
+}
+
+.slideinleft {
+  opacity: 0;
+  transform: translateX(-18px);
+  transition:
+    opacity var(--anim-duration) var(--anim-ease),
+    transform var(--anim-duration) var(--anim-ease);
+  transition-delay: var(--anim-delay);
+}
+
+.slideinright {
+  opacity: 0;
+  transform: translateX(18px);
+  transition:
+    opacity var(--anim-duration) var(--anim-ease),
+    transform var(--anim-duration) var(--anim-ease);
+  transition-delay: var(--anim-delay);
+}
+
+.slideinleft.visible,
+.slideinright.visible {
+  opacity: 1;
+  transform: none;
+}
+
+.fade-up[style*='--i'],
+.slideinup[style*='--i'],
+.anim-reveal[style*='--i'] {
+  transition-delay: calc(var(--anim-delay) + (var(--i, 0) * 0.055s));
+}
+
+/* Auto-stagger — tighter cascade */
+.anim-stagger > * {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.55s var(--anim-ease),
+    transform 0.55s var(--anim-ease),
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.anim-stagger.visible > *:nth-child(1) { transition-delay: 0.02s; }
+.anim-stagger.visible > *:nth-child(2) { transition-delay: 0.07s; }
+.anim-stagger.visible > *:nth-child(3) { transition-delay: 0.12s; }
+.anim-stagger.visible > *:nth-child(4) { transition-delay: 0.17s; }
+.anim-stagger.visible > *:nth-child(5) { transition-delay: 0.22s; }
+.anim-stagger.visible > *:nth-child(6) { transition-delay: 0.27s; }
+.anim-stagger.visible > *:nth-child(7) { transition-delay: 0.32s; }
+.anim-stagger.visible > *:nth-child(8) { transition-delay: 0.37s; }
+.anim-stagger.visible > *:nth-child(n + 9) { transition-delay: 0.42s; }
+
+.anim-stagger.visible > * {
+  opacity: 1;
+  transform: none;
+}
+
+/* ─── Media hover — clip + subtle lift ─── */
+.facilities-card__img,
+.campus-facility-item__media,
+.campus-lab-tile__media,
+.campus-lab__media,
+.about-highlight-card__img,
+.about-discover__media,
+.about-mgmt-story__media,
+.about-principal-srec__media,
+.home-about__media,
+.home-course-tile,
+.home-campus-show__panel,
+.home-people__person,
+.course-detail__media,
+.campus-facility-block__media,
+.dept-card__shell,
+.facilities-featured__img,
+.amc-photo__media,
+.advanced-gallery-item,
+.media-blog-card__media,
+.media-magazine-card__cover {
+  overflow: hidden;
+}
+
+.facilities-card,
+.campus-lab-tile,
+.dept-card__shell,
+.about-highlight-card,
+.home-course-tile,
+.feature-list__link,
+.media-blog-card,
+.media-news-card,
+.amc-activity,
+.route-qr {
+  transition:
+    transform 0.4s var(--anim-ease),
+    box-shadow 0.4s var(--anim-ease),
+    border-color 0.35s ease;
+}
+
+.facilities-card:hover,
+.campus-lab-tile:hover,
+.dept-card__shell:hover,
+.about-highlight-card:hover,
+.home-course-tile:hover,
+.media-blog-card:hover,
+.media-news-card:hover,
+.amc-activity:hover,
+.route-qr:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(61, 8, 14, 0.1);
+}
+
+.facilities-card__img img,
+.campus-facility-item__media img,
+.campus-lab-tile__media img,
+.campus-lab__media img,
+.feature-list__icon,
+.dept-card__img,
+.about-highlight-card__img img,
+.about-discover__media img,
+.about-mgmt-story__media img,
+.about-principal-srec__media img,
+.home-about__media img,
+.home-course-tile img,
+.home-campus-show__panel img,
+.home-people__person img,
+.course-detail__media img,
+.facilities-featured__img,
+.campus-facility-block__media img,
+.amc-photo__media img,
+.advanced-gallery-item img,
+.media-blog-card__media img,
+.media-magazine-card__cover img {
+  transition: transform 0.7s var(--anim-ease-soft);
+}
+
+.facilities-card:hover .facilities-card__img img,
+.campus-facility-item:hover .campus-facility-item__media img,
+.campus-lab-tile:hover .campus-lab-tile__media img,
+.campus-lab:hover .campus-lab__media img,
+.feature-list__link:hover .feature-list__icon,
+.dept-card__shell:hover .dept-card__img,
+.about-highlight-card:hover .about-highlight-card__img img,
+.about-discover__media:hover img,
+.about-mgmt-story__media:hover img,
+.about-principal-srec__media:hover img,
+.home-about__media:hover img,
+.home-course-tile:hover img,
+.home-campus-show__panel:hover img,
+.home-people__person:hover img,
+.course-detail:hover .course-detail__media img,
+.facilities-featured__img:hover,
+.campus-facility-block:hover .campus-facility-block__media img,
+.amc-photo:hover .amc-photo__media img,
+.advanced-gallery-item:hover img,
+.media-blog-card:hover .media-blog-card__media img,
+.media-magazine-card:hover .media-magazine-card__cover img {
+  transform: scale(1.05);
+}
+
+/* ─── GP as-btn wipe ─── */
+.as-btn {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: middle;
+  border: none;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  background-color: var(--crimson, #6e1018);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  padding: 0.85rem 1.35rem;
+  border-radius: 4px;
+  transition: color 0.3s ease, transform 0.3s var(--anim-ease);
+}
+
+.as-btn::before {
+  content: '';
+  position: absolute;
+  height: 0%;
+  left: 50%;
+  top: 50%;
+  width: 600%;
+  background-color: var(--crimson-deep, #3d080e);
+  transform: translateX(-50%) translateY(-50%) rotate(60deg);
+  z-index: -1;
+  transition: height 0.55s var(--anim-ease);
+}
+
+.as-btn:hover {
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.as-btn:hover::before {
+  height: 560%;
+}
+
+.as-btn--outline {
+  background: transparent;
+  color: var(--crimson, #6e1018);
+  border: 1px solid var(--crimson, #6e1018);
+}
+
+.as-btn--outline::before {
+  background-color: var(--crimson, #6e1018);
+}
+
+.as-btn--outline:hover {
+  color: #fff;
+}
+
+/* Home stats / outcomes — denser bands */
+.home-stats-band.space,
+.home-outcomes-band.space {
+  padding-top: var(--section-space) !important;
+  padding-bottom: var(--section-space) !important;
+}
+
+@media (max-width: 991px) {
+  .home-stats-band.space,
+  .home-outcomes-band.space {
+    padding-top: var(--section-space-mobile) !important;
+    padding-bottom: var(--section-space-mobile) !important;
+  }
+}
+
+/* Hero caption */
+.hero__caption-anim {
+  animation: heroCaptionIn 0.55s var(--anim-ease) both;
+}
+
+@keyframes heroCaptionIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.count-up {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Dense facilities / gallery grids site-wide */
+.facilities-gallery,
+.campus-labs-grid,
+.dept-cards,
+.feature-list-grid,
+.about-highlights__grid,
+.home-courses__grid,
+.home-attributes__grid,
+.home-campus-show__grid,
+.home-stats-band__grid,
+.advanced-gallery-grid,
+.media-blog-grid,
+.media-magazine-grid,
+.amc-photos,
+.amc-activities,
+.route-qr-grid {
+  gap: var(--grid-gap) !important;
+}
+
+.facilities-section__head,
+.facilities-intro__center {
+  margin-bottom: 1.25rem !important;
+}
+
+.facilities-featured {
+  margin-bottom: 1.25rem !important;
+  gap: var(--grid-gap) !important;
+}
+
+.facilities-section + .facilities-section {
+  margin-top: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up,
+  .slideinup,
+  .slideinleft,
+  .slideinright,
+  .anim-reveal,
+  .anim-stagger > *,
+  .title_border {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .hero__caption-anim {
+    animation: none !important;
+  }
+
+  .facilities-card:hover,
+  .campus-lab-tile:hover,
+  .dept-card__shell:hover,
+  .about-highlight-card:hover,
+  .home-course-tile:hover,
+  .media-blog-card:hover,
+  .media-news-card:hover,
+  .amc-activity:hover,
+  .route-qr:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  .facilities-card:hover .facilities-card__img img,
+  .campus-facility-item:hover .campus-facility-item__media img,
+  .campus-lab-tile:hover .campus-lab-tile__media img,
+  .campus-lab:hover .campus-lab__media img,
+  .feature-list__link:hover .feature-list__icon,
+  .dept-card__shell:hover .dept-card__img,
+  .about-highlight-card:hover .about-highlight-card__img img,
+  .about-discover__media:hover img,
+  .about-mgmt-story__media:hover img,
+  .about-principal-srec__media:hover img,
+  .home-about__media:hover img,
+  .home-course-tile:hover img,
+  .home-campus-show__panel:hover img,
+  .home-people__person:hover img,
+  .course-detail:hover .course-detail__media img,
+  .facilities-featured__img:hover,
+  .campus-facility-block:hover .campus-facility-block__media img,
+  .amc-photo:hover .amc-photo__media img,
+  .advanced-gallery-item:hover img,
+  .media-blog-card:hover .media-blog-card__media img,
+  .media-magazine-card:hover .media-magazine-card__cover img {
+    transform: none !important;
+  }
+}

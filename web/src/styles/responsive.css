@@ -1,0 +1,788 @@
+/**
+ * G.P. Pharmacy College — Spacing & All-Media Responsive System
+ * Fluid spacing · 5 breakpoints · touch · print · landscape
+ */
+
+/* ─── Fluid spacing scale ─── */
+:root {
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+
+  --section-y: clamp(2.75rem, 5vw + 1rem, 5rem);
+  --section-header-gap: clamp(1.5rem, 3vw + 0.5rem, 3.25rem);
+  --grid-gap: clamp(1rem, 2vw + 0.5rem, 2rem);
+  --grid-gap-lg: clamp(1.5rem, 3vw + 0.5rem, 3.5rem);
+  --card-pad: clamp(1.15rem, 2vw + 0.5rem, 1.75rem);
+  --container-px: clamp(1rem, 4vw, 1.75rem);
+  --stack-gap: clamp(0.75rem, 1.5vw, 1.25rem);
+}
+
+/* ─── Global spacing ─── */
+.container {
+  padding-left: max(var(--container-px), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--container-px), env(safe-area-inset-right, 0px));
+}
+
+.section {
+  padding-block: var(--section-y);
+}
+
+.section__header {
+  margin-bottom: var(--section-header-gap);
+  padding-inline: 0;
+}
+
+.section__title {
+  margin-bottom: var(--space-4);
+}
+
+.section__label {
+  margin-bottom: var(--space-3);
+}
+
+.section__desc {
+  margin-top: var(--space-2);
+}
+
+/* Grids */
+.grid-2 { gap: var(--grid-gap-lg); }
+.grid-3,
+.grid-4 { gap: var(--grid-gap); }
+
+.portal-hub,
+.programs-grid,
+.advantages-grid,
+.goal-grid,
+.faculty-grid,
+.resource-grid,
+.campus-grid,
+.achievements-grid,
+.alumni-directory-grid,
+.alumni-modules-grid,
+.placement-modules-grid,
+.research-modules-grid,
+.notice-events-grid,
+.events-grid,
+.news-grid {
+  gap: var(--grid-gap);
+}
+
+/* Cards & panels */
+.portal-card,
+.program-card,
+.feature-card,
+.goal-item,
+.advantage-card,
+.faculty-card,
+.resource-card,
+.step-card,
+.card,
+.contact-form,
+.admission-wizard,
+.alumni-card,
+.achievement-card {
+  padding: var(--card-pad);
+}
+
+.hero-trust__grid {
+  gap: var(--space-3);
+  padding: var(--space-3);
+}
+
+.hero-trust__item {
+  padding: var(--space-4) var(--space-3);
+  gap: var(--space-3);
+}
+
+.hero__actions {
+  gap: var(--stack-gap);
+  margin-top: var(--space-2);
+}
+
+.hero__badge {
+  margin-bottom: var(--space-5);
+}
+
+.hero__title {
+  margin-bottom: var(--space-4);
+}
+
+.hero__subtitle {
+  margin-bottom: var(--space-8);
+}
+
+.page-hero {
+  padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(2rem, 4vw, 3.5rem);
+}
+
+.page-hero__title {
+  margin-bottom: var(--space-3);
+}
+
+.breadcrumb {
+  margin-bottom: var(--space-5);
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: var(--space-5);
+}
+
+.contact-info__item {
+  margin-bottom: var(--space-6);
+  gap: var(--space-4);
+}
+
+.contact-grid {
+  gap: var(--grid-gap-lg);
+}
+
+.footer {
+  padding-top: var(--space-16);
+}
+
+.footer__grid {
+  gap: var(--grid-gap-lg);
+  padding-bottom: var(--space-12);
+}
+
+.footer__portals {
+  gap: var(--space-3);
+  padding-bottom: var(--space-10);
+  margin-bottom: var(--space-10);
+}
+
+.footer__bottom {
+  padding-block: var(--space-6);
+  gap: var(--space-3);
+}
+
+.cta-banner {
+  padding: clamp(2rem, 5vw, 3.5rem) clamp(1.25rem, 4vw, 2.5rem);
+  margin-inline: var(--space-2);
+}
+
+.stats {
+  padding: clamp(1.75rem, 4vw, 2.75rem) clamp(1.25rem, 3vw, 2rem);
+  margin-top: calc(-1 * var(--space-10));
+}
+
+.info-banner {
+  padding: var(--space-6) var(--space-8);
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+
+.admission-wizard {
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.admission-progress {
+  margin-bottom: var(--space-10);
+  gap: var(--space-2);
+}
+
+.placement-portal-hero,
+.research-hero,
+.alumni-portal-hero {
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  gap: var(--grid-gap);
+}
+
+.placement-portal-stats,
+.research-stats,
+.alumni-portal-stats {
+  gap: var(--space-3);
+}
+
+/* Stack utilities */
+.stack-sm > * + * { margin-top: var(--space-2); }
+.stack-md > * + * { margin-top: var(--space-4); }
+.stack-lg > * + * { margin-top: var(--space-6); }
+
+/* ═══════════════════════════════════════════
+   BREAKPOINT: Large desktop (1440px+)
+   ═══════════════════════════════════════════ */
+@media (min-width: 1440px) {
+  :root {
+    --section-y: 5.5rem;
+    --grid-gap-lg: 3.5rem;
+    --container-px: 1.75rem;
+  }
+
+  .container { max-width: var(--container-max, 1140px); }
+}
+
+/* ═══════════════════════════════════════════
+   BREAKPOINT: Laptop (1025px – 1280px)
+   ═══════════════════════════════════════════ */
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .portal-hub { grid-template-columns: repeat(2, 1fr); }
+  .programs-grid { grid-template-columns: repeat(2, 1fr); }
+  .advantages-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-trust__grid { grid-template-columns: repeat(3, 1fr); }
+  .goal-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ═══════════════════════════════════════════
+   BREAKPOINT: Tablet (769px – 1024px)
+   ═══════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  :root {
+    --section-y: clamp(2.5rem, 4vw, 3.75rem);
+    --grid-gap-lg: 2rem;
+  }
+
+  .grid-2 { gap: var(--grid-gap); }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .portal-hub { grid-template-columns: repeat(2, 1fr); }
+  .hero-trust__grid { grid-template-columns: repeat(3, 1fr); }
+  .goal-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer__grid { grid-template-columns: 1fr 1fr; }
+  .footer__portals { grid-template-columns: repeat(3, 1fr); }
+  .vision-mission { gap: var(--space-6); }
+  .placement-portal-stats,
+  .research-stats,
+  .alumni-portal-stats { grid-template-columns: repeat(2, 1fr); }
+  .student-life-layout { gap: var(--space-8); }
+  .notice-events-grid { gap: var(--grid-gap); }
+}
+
+/* ═══════════════════════════════════════════
+   BREAKPOINT: Mobile (≤768px)
+   ═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  :root {
+    --section-y: clamp(2.25rem, 6vw, 3rem);
+    --section-header-gap: clamp(1.25rem, 4vw, 2rem);
+    --grid-gap: 1rem;
+    --grid-gap-lg: 1.5rem;
+    --card-pad: 1.15rem;
+    --header-h: 68px;
+  }
+
+  .header__inner {
+    height: var(--header-h);
+    gap: var(--space-3);
+  }
+
+  .section__header {
+    text-align: center;
+    padding-inline: 0;
+  }
+
+  .section__title {
+    font-size: clamp(1.45rem, 5.5vw, 1.95rem);
+    line-height: 1.2;
+  }
+
+  .section__desc {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+    gap: var(--grid-gap-lg);
+  }
+
+  .grid-2 > .img-frame,
+  .grid-2 > .video-wrap { order: -1; }
+
+  .portal-hub,
+  .programs-grid,
+  .advantages-grid,
+  .goal-grid,
+  .hero-trust__grid,
+  .footer__portals,
+  .footer__grid,
+  .faculty-grid,
+  .resource-grid,
+  .campus-grid,
+  .achievements-grid,
+  .alumni-directory-grid,
+  .alumni-modules-grid {
+    grid-template-columns: 1fr;
+    gap: var(--grid-gap);
+  }
+
+  .hero--strong {
+    min-height: min(88vh, 620px);
+    height: auto;
+  }
+
+  .hero__content {
+    padding-block: var(--space-8);
+  }
+
+  .hero__subtitle {
+    margin-bottom: var(--space-6);
+  }
+
+  .hero-trust {
+    margin-top: calc(-1 * var(--space-8));
+    margin-bottom: var(--space-4);
+  }
+
+  .hero-trust__grid {
+    padding: var(--space-2);
+  }
+
+  .hero--strong .hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+  }
+
+  .hero--strong .hero__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero--strong .hero__title::after {
+    margin-top: var(--space-4);
+  }
+
+  .page-hero__title {
+    font-size: clamp(1.6rem, 6.5vw, 2.15rem);
+    line-height: 1.15;
+  }
+
+  .page-hero__subtitle {
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+    padding-inline: var(--space-2);
+  }
+
+  .placement-portal-stats,
+  .research-stats,
+  .alumni-portal-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .placement-portal-stat,
+  .research-stat,
+  .alumni-portal-stat {
+    padding: var(--space-4) var(--space-3);
+  }
+
+  .contact-grid { gap: var(--grid-gap-lg); }
+  .contact-form { padding: var(--card-pad); }
+
+  .admission-tabs {
+    width: 100%;
+    overflow-x: auto;
+    gap: var(--space-1);
+    padding: var(--space-1);
+  }
+
+  .admission-tab {
+    padding: var(--space-3) var(--space-4);
+    font-size: 0.8125rem;
+  }
+
+  .admission-nav {
+    flex-direction: column-reverse;
+    gap: var(--space-3);
+  }
+
+  .admission-nav .btn { width: 100%; }
+
+  .info-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: var(--space-5);
+    gap: var(--space-3);
+  }
+
+  .info-banner .btn { width: 100%; }
+
+  .notice-board__item {
+    padding: var(--space-4);
+    gap: var(--space-3);
+  }
+
+  .notice-events-grid,
+  .events-grid,
+  .news-grid {
+    grid-template-columns: 1fr;
+    gap: var(--grid-gap);
+  }
+
+  .cta-banner {
+    text-align: center;
+    padding: var(--space-8) var(--space-5);
+  }
+
+  .cta-banner .btn {
+    width: 100%;
+    max-width: 320px;
+    margin-inline: auto;
+  }
+
+  .lab-card {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    padding: var(--card-pad);
+  }
+
+  .lab-card img {
+    width: 100%;
+    height: 200px;
+  }
+
+  .resource-card {
+    flex-direction: row;
+    gap: var(--space-4);
+    padding: var(--card-pad);
+  }
+
+  .steps,
+  .placement-modules-grid,
+  .research-modules-grid {
+    gap: var(--grid-gap);
+  }
+
+  .footer__bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .gp-assistant {
+    bottom: max(var(--space-4), env(safe-area-inset-bottom));
+    right: max(var(--space-4), env(safe-area-inset-right));
+  }
+
+  .video-wrap iframe {
+    min-height: 220px;
+    aspect-ratio: 16 / 9;
+  }
+
+  .map-wrap iframe {
+    height: min(50vw, 280px);
+    min-height: 220px;
+  }
+
+  .erp-box {
+    padding: var(--space-8) var(--space-5);
+    text-align: center;
+  }
+
+  .erp-box .btn {
+    display: block;
+    width: 100%;
+    margin: var(--space-2) 0 0 !important;
+  }
+
+  .dept-tabs,
+  .achievement-category-bar,
+  .gallery-filter-bar {
+    margin-bottom: var(--space-6);
+    gap: var(--space-2);
+    padding-bottom: var(--space-2);
+  }
+}
+
+/* ═══════════════════════════════════════════
+   BREAKPOINT: Small phone (≤480px)
+   ═══════════════════════════════════════════ */
+@media (max-width: 480px) {
+  :root {
+    --section-y: 2.25rem;
+    --section-header-gap: 1.25rem;
+    --card-pad: 1rem;
+    --container-px: 1rem;
+  }
+
+  .hero--strong { min-height: 420px; }
+
+  .hero-trust__item {
+    flex-direction: row;
+    align-items: center;
+    padding: var(--space-3);
+  }
+
+  .hero-trust__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .placement-portal-stats,
+  .research-stats,
+  .alumni-portal-stats,
+  .placement-stats,
+  .recruiter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats {
+    padding: var(--space-6) var(--space-4);
+    margin-top: calc(-1 * var(--space-8));
+  }
+
+  .btn--lg {
+    padding: var(--space-3) var(--space-5);
+    font-size: 0.9375rem;
+  }
+
+  .resource-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer__portals {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+  }
+
+  .footer-portal {
+    padding: var(--space-4) var(--space-2);
+  }
+
+  .gp-assistant__toggle-label { display: none; }
+
+  .gp-assistant__toggle {
+    width: 56px;
+    height: 56px;
+    padding: 0;
+    border-radius: 50%;
+    justify-content: center;
+  }
+
+  .gp-assistant__panel {
+    width: calc(100vw - 2rem);
+    max-width: none;
+    right: var(--space-4);
+    bottom: calc(4.5rem + env(safe-area-inset-bottom));
+  }
+}
+
+/* ═══════════════════════════════════════════
+   BREAKPOINT: Extra small (≤360px)
+   ═══════════════════════════════════════════ */
+@media (max-width: 360px) {
+  :root {
+    --container-px: 0.875rem;
+    --card-pad: 0.875rem;
+  }
+
+  .logo img { width: 38px; height: 38px; }
+
+  .logo__text {
+    font-size: 0.75rem;
+  }
+
+  .logo__text small { font-size: 0.55rem; }
+
+  .hero__title {
+    font-size: clamp(1.65rem, 8vw, 2rem);
+  }
+
+  .section__title {
+    font-size: 1.35rem;
+  }
+
+  .footer__portals {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   Landscape phones
+   ═══════════════════════════════════════════ */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero--strong {
+    min-height: auto;
+    height: auto;
+    padding-block: var(--space-8);
+  }
+
+  .hero__content {
+    padding-block: var(--space-6);
+  }
+
+  .hero__subtitle {
+    margin-bottom: var(--space-4);
+    font-size: 0.9rem;
+  }
+
+  .hero__dots { bottom: var(--space-3); }
+
+  .nav--mobile {
+    width: min(280px, 70vw);
+  }
+}
+
+/* ═══════════════════════════════════════════
+   Touch devices — larger tap targets
+   ═══════════════════════════════════════════ */
+@media (hover: none) and (pointer: coarse) {
+  .btn,
+  .nav__link,
+  .mobile-nav__item,
+  .admission-tab,
+  .dept-tab,
+  .achievement-filter,
+  .gallery-filter,
+  .hero__dot,
+  .menu-toggle {
+    min-height: 44px;
+  }
+
+  .portal-card:hover,
+  .program-card:hover,
+  .feature-card:hover,
+  .goal-item:hover {
+    transform: none;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   High-resolution displays
+   ═══════════════════════════════════════════ */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .hero__slide {
+    background-size: cover;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   Print
+   ═══════════════════════════════════════════ */
+@media print {
+  .announcement,
+  .header,
+  .menu-toggle,
+  .nav--mobile,
+  .mobile-nav-overlay,
+  .gp-assistant,
+  .hero__dots,
+  .hero-trust {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+    font-size: 11pt;
+  }
+
+  .section {
+    padding-block: 1.5rem;
+    break-inside: avoid;
+  }
+
+  .page-hero {
+    background: none !important;
+    color: #000 !important;
+    padding: 1rem 0;
+  }
+
+  .page-hero__title,
+  .page-hero__subtitle {
+    color: #000 !important;
+  }
+
+  a[href]::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.8em;
+  }
+
+  .footer {
+    background: none !important;
+    color: #000;
+    border-top: 1px solid #ccc;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   Reduced motion
+   ═══════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .announcement__track {
+    animation: none;
+    justify-content: center;
+    flex-wrap: wrap;
+    white-space: normal;
+  }
+
+  .announcement__track span {
+    padding-inline: var(--space-4);
+  }
+
+  .hero__slide,
+  .nav--mobile,
+  .home-campus-show__panel img,
+  .home-course-tile img,
+  .program-become__media img,
+  .gallery-tile img {
+    transition: none !important;
+  }
+
+  .portal-card:hover,
+  .program-card:hover,
+  .feature-card:hover,
+  .goal-item:hover,
+  .approvals-wall__item:hover,
+  .hub-link:hover {
+    transform: none !important;
+  }
+}
+
+/* Always-on video / map aspect helpers (mobile + desktop) */
+.video-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #1a080a;
+}
+
+.video-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  min-height: 0;
+}
+
+/* ═══════════════════════════════════════════
+   Tablet portrait fine-tuning
+   ═══════════════════════════════════════════ */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .programs-grid,
+  .advantages-grid,
+  .portal-hub {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .achievements-grid,
+  .advanced-gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero-trust__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ═══════════════════════════════════════════
+   Ultra-wide (1600px+)
+   ═══════════════════════════════════════════ */
+@media (min-width: 1600px) {
+  .container { max-width: 1280px; }
+
+  .portal-hub {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

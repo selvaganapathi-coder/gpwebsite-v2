@@ -1,0 +1,216 @@
+/**
+ * Community / parents hub helpers
+ */
+
+.hub-audience {
+  scroll-margin-top: 7rem;
+}
+
+.hub-audience__head {
+  margin-bottom: 1.25rem;
+}
+
+.hub-jump {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(251, 250, 248, 0.96);
+  border-bottom: 1px solid rgba(61, 8, 14, 0.1);
+  backdrop-filter: blur(8px);
+}
+
+.hub-jump__inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.85rem;
+  padding: 0.7rem 0;
+}
+
+.hub-jump a {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--crimson, #6e1018);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 0.15rem;
+}
+
+.hub-jump a:hover,
+.hub-jump a:focus-visible {
+  border-bottom-color: var(--gold, #c4a35a);
+}
+
+.hub-link-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.hub-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.15rem 1.2rem;
+  background: #fff;
+  border: 1px solid rgba(61, 8, 14, 0.1);
+  border-left: 3px solid var(--crimson, #6e1018);
+  border-radius: var(--radius-lg, 6px);
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--shadow, 0 2px 12px rgba(26, 18, 16, 0.06));
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hub-link:hover,
+.hub-link:focus-visible {
+  border-color: var(--gold, #c4a35a);
+  border-left-color: var(--gold, #c4a35a);
+}
+
+.hub-link strong {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--crimson-deep, #3d080e);
+}
+
+.hub-link span {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--text-light, #5c534c);
+}
+
+.hub-link--muted {
+  border-left-color: rgba(61, 8, 14, 0.25);
+  opacity: 0.92;
+}
+
+.hub-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.5rem;
+}
+
+.hub-checklist {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hub-checklist li {
+  position: relative;
+  padding: 0.4rem 0 0.4rem 1.35rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text, #2a221e);
+  border-bottom: 1px solid rgba(61, 8, 14, 0.06);
+}
+
+.hub-checklist li:last-child {
+  border-bottom: none;
+}
+
+.hub-checklist li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.7rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--gold, #c4a35a);
+}
+
+.hub-note {
+  margin: 0.85rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text-light, #5c534c);
+}
+
+.parent-essentials {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1.35rem;
+}
+
+.parent-essentials__know,
+.parent-essentials__provide {
+  background: #fff;
+  border: 1px solid rgba(61, 8, 14, 0.1);
+  border-radius: 8px;
+  padding: 1.25rem 1.2rem;
+}
+
+.parent-essentials__know {
+  border-top: 3px solid var(--gold, #c4a35a);
+}
+
+.parent-essentials__provide {
+  border-top: 3px solid var(--crimson, #6e1018);
+}
+
+.parent-essentials h3 {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--crimson-deep, #3d080e);
+}
+
+/* Shared fee clarity (courses + admissions) */
+.fee-clarity {
+  background: #fff;
+  border: 1px solid rgba(61, 8, 14, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.fee-clarity__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 0.75rem 1rem;
+  padding: 0.9rem 1.15rem;
+  border-bottom: 1px solid rgba(61, 8, 14, 0.08);
+  font-size: 0.9rem;
+}
+
+.fee-clarity__row:last-child {
+  border-bottom: none;
+}
+
+.fee-clarity__row span {
+  color: var(--text-light, #5c534c);
+}
+
+.fee-clarity__row strong {
+  color: var(--crimson-deep, #3d080e);
+  font-weight: 600;
+}
+
+.fee-clarity__note {
+  margin: 1rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--text, #2a221e);
+}
+
+.fee-clarity__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.15rem;
+}
+
+@media (max-width: 720px) {
+  .parent-essentials,
+  .hub-link-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fee-clarity__row {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,1 @@
+{"functions":[{"bundler":"esbuild","buildData":{"runtimeAPIVersion":1},"mainFile":"D:\\gp website\\netlify\\functions\\api.mjs","name":"api","priority":10,"runtimeVersion":"nodejs24.x","path":"D:\\gp website\\.netlify\\functions\\api.zip","runtime":"js"}],"system":{"arch":"x64","platform":"win32"},"timestamp":1789661130851,"version":1}

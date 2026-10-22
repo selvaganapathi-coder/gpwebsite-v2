@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="refresh" content="0;url=news.html">
+  <title>Redirecting… | G.P. Pharmacy College</title>
+  <script>
+    (function () {
+      var target = location.hash === '#events' ? 'events.html' : 'news.html';
+      if (location.hash && location.hash !== '#events') target += location.hash;
+      location.replace(target);
+    })();
+  </script>
+</head>
+<body>
+  <p>Redirecting to <a href="news.html">News</a>…</p>
+</body>
+</html>

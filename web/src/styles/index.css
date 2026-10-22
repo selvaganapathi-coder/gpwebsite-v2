@@ -1,0 +1,11 @@
+/* G.P. Pharmacy College — React app styles (ported from static site) */
+@import './style.css';
+@import './design.css';
+@import './home.css';
+@import './community.css';
+@import './advanced.css';
+@import './signal.css';
+@import './mobile.css';
+@import './theme.css';
+@import './responsive.css';
+@import './react-overrides.css';

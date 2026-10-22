@@ -1,0 +1,369 @@
+/**
+ * Mandatory Disclosure + Faculty staff tables — responsive
+ */
+
+.disclosure-page {
+  overflow-x: clip;
+}
+
+.disclosure-lead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  margin-bottom: clamp(1.15rem, 2.5vw, 1.75rem);
+  padding: clamp(0.95rem, 2vw, 1.25rem);
+  background: linear-gradient(120deg, #fff 0%, #fbf6ee 100%);
+  border: 1px solid rgba(61, 8, 14, 0.1);
+  border-left: 4px solid var(--crimson-deep, #6e1018);
+}
+
+.disclosure-lead p {
+  margin: 0;
+  max-width: 42rem;
+  font-size: clamp(0.95rem, 0.9rem + 0.25vw, 1.05rem);
+  line-height: 1.6;
+  color: var(--text, #1f1f1f);
+}
+
+.disclosure-code {
+  font-family: var(--font-display);
+  font-size: 1.25em;
+  color: var(--crimson-deep, #6e1018);
+}
+
+.disclosure-lead__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.disclosure-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.85rem, 2vw, 1.25rem);
+}
+
+.disclosure-card {
+  padding: clamp(1rem, 2.2vw, 1.35rem);
+  background: #fff;
+  border: 1px solid rgba(61, 8, 14, 0.1);
+  border-top: 3px solid var(--gold, #c4a35a);
+  min-width: 0;
+}
+
+.disclosure-card--full {
+  grid-column: 1 / -1;
+}
+
+.disclosure-card h2 {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.55rem);
+  font-weight: 600;
+  color: var(--crimson-deep, #3d080e);
+}
+
+.disclosure-card p {
+  margin: 0 0 0.85rem;
+  font-size: clamp(0.9rem, 0.88rem + 0.15vw, 0.98rem);
+  line-height: 1.6;
+  color: var(--text-light, #6b6560);
+}
+
+.disclosure-table-wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+
+.disclosure-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+}
+
+.disclosure-table th,
+.disclosure-table td {
+  padding: 0.7rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(61, 8, 14, 0.08);
+  font-family: var(--font-sans);
+}
+
+.disclosure-table th {
+  width: 38%;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-dark, #9a7d3a);
+}
+
+.disclosure-table td {
+  font-size: 0.9375rem;
+  color: var(--text, #1f1f1f);
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+.disclosure-table td a,
+.disclosure-note a {
+  color: var(--crimson-deep, #6e1018);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(110, 16, 24, 0.25);
+}
+
+.disclosure-table--programs {
+  min-width: 0;
+}
+
+.disclosure-table--programs thead th {
+  background: var(--bg-soft, #f7f4f0);
+  color: var(--crimson-deep, #6e1018);
+  width: auto;
+  white-space: nowrap;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.disclosure-note {
+  margin: 1rem 0 0 !important;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem !important;
+}
+
+.disclosure-checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.disclosure-checklist li {
+  position: relative;
+  padding: 0.45rem 0 0.45rem 1.25rem;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--text, #1f1f1f);
+  border-bottom: 1px solid rgba(61, 8, 14, 0.06);
+}
+
+.disclosure-checklist li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.75rem;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--gold, #c4a35a);
+}
+
+/* Faculty � department-wise staff table */
+.faculty-staff-section .section__desc {
+  margin-bottom: 1.15rem;
+}
+
+.faculty-staff-table-wrap {
+  margin-top: 0.35rem;
+}
+
+.faculty-staff-table td:nth-child(1) {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--crimson-deep, #3d080e);
+}
+
+.faculty-staff-table th:nth-child(1) {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--crimson-deep, #3d080e);
+}
+
+/* ??? Tablet / mobile: key-value disclosure tables ??? */
+@media (max-width: 720px) {
+  .disclosure-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .disclosure-card--full {
+    grid-column: auto;
+  }
+
+  .disclosure-table:not(.disclosure-table--programs) {
+    display: block;
+  }
+
+  .disclosure-table:not(.disclosure-table--programs) tbody {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .disclosure-table:not(.disclosure-table--programs) tr {
+    display: grid;
+    grid-template-columns: minmax(7.5rem, 34%) 1fr;
+    gap: 0.35rem 0.75rem;
+    align-items: start;
+    padding: 0.75rem 0.85rem;
+    background: var(--bg-soft, #f7f4f0);
+    border: 1px solid rgba(61, 8, 14, 0.08);
+    border-left: 3px solid var(--gold, #c4a35a);
+  }
+
+  .disclosure-table:not(.disclosure-table--programs) th,
+  .disclosure-table:not(.disclosure-table--programs) td {
+    display: block;
+    width: auto;
+    padding: 0;
+    border: 0;
+  }
+
+  .disclosure-table:not(.disclosure-table--programs) th {
+    padding-top: 0.1rem;
+  }
+}
+
+/* ??? Mobile: multi-column program / faculty tables ? cards ??? */
+@media (max-width: 800px) {
+  .disclosure-table-wrap {
+    overflow-x: visible;
+  }
+
+  .disclosure-table--programs,
+  .faculty-staff-table {
+    min-width: 0 !important;
+  }
+
+  .disclosure-table--programs thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .disclosure-table--programs tbody {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .disclosure-table--programs tbody tr {
+    display: grid;
+    gap: 0.45rem;
+    margin: 0;
+    padding: 0.95rem 1rem;
+    background: #fff;
+    border: 1px solid rgba(61, 8, 14, 0.1);
+    border-top: 3px solid var(--gold, #c4a35a);
+    box-shadow: 0 4px 14px rgba(26, 18, 16, 0.04);
+  }
+
+  .disclosure-table--programs tbody td {
+    display: grid;
+    grid-template-columns: minmax(6.5rem, 38%) 1fr;
+    gap: 0.5rem 0.75rem;
+    align-items: start;
+    border: 0;
+    padding: 0.2rem 0;
+  }
+
+  .disclosure-table--programs tbody td::before {
+    content: attr(data-label);
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold-dark, #9a7d3a);
+    line-height: 1.35;
+    padding-top: 0.12rem;
+  }
+
+  /* Faculty card: lead with staff name */
+  .faculty-staff-table tbody td:first-child {
+    display: block;
+    padding: 0 0 0.45rem;
+    margin-bottom: 0.35rem;
+    border-bottom: 1px solid rgba(61, 8, 14, 0.08);
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 2.5vw, 1.35rem);
+    font-weight: 600;
+    color: var(--crimson-deep, #3d080e);
+    line-height: 1.25;
+  }
+
+  .faculty-staff-table tbody td:first-child::before {
+    display: none;
+  }
+
+  .faculty-staff-table th:nth-child(1),
+  .faculty-staff-table td:nth-child(1),
+  .faculty-staff-table th:nth-child(2),
+  .faculty-staff-table td:nth-child(2) {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .disclosure-lead__actions {
+    width: 100%;
+  }
+
+  .disclosure-lead__actions .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+    min-height: 44px;
+  }
+
+  .disclosure-table:not(.disclosure-table--programs) tr {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+
+  .disclosure-table--programs tbody td {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+
+  .disclosure-table--programs tbody td::before {
+    padding-top: 0;
+  }
+
+  .faculty-staff-table tbody tr {
+    padding: 0.85rem 0.9rem;
+  }
+}
+
+.about-policy-anchor {
+  scroll-margin-top: calc(var(--header-sticky-offset, 5rem) + 1rem);
+}
+
+.about-policy-anchor h2 {
+  margin-top: 0;
+}
+
+.disclosure-card[id],
+#pci,
+#university,
+#governing-body,
+#grievance,
+#anti-ragging,
+#college-profile {
+  scroll-margin-top: calc(var(--header-sticky-offset, 5rem) + 1rem);
+}

@@ -1,0 +1,238 @@
+/**
+ * Departments page — SREC-inspired layout, scroll nav & card animations
+ */
+
+.page-hero--departments {
+  background:
+    linear-gradient(135deg, rgba(31, 31, 31, 0.82) 0%, rgba(168, 0, 0, 0.75) 100%),
+    url('https://gppharmacycollege.com/wp-content/uploads/2025/03/G.P-Pharmacy-College-home.jpg') center / cover no-repeat;
+  padding-block: clamp(3rem, 7vw, 5rem) clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.page-hero--departments .page-hero__title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.dept-section {
+  padding-block: clamp(2.5rem, 5vw, 3.75rem);
+  scroll-margin-top: 88px;
+}
+
+.dept-section:nth-child(even) {
+  background: linear-gradient(180deg, #fff 0%, var(--bg-soft) 100%);
+}
+
+.dept-section__head {
+  text-align: center;
+  margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.dept-section__title {
+  font-size: clamp(1.35rem, 3vw, 1.85rem);
+  font-weight: 600;
+  color: var(--primary-deep);
+  margin: 0 0 0.85rem;
+  font-family: var(--font-display);
+}
+
+.dept-section__divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+.dept-section__divider::before,
+.dept-section__divider::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--red-deep));
+}
+
+.dept-section__divider::after {
+  background: linear-gradient(90deg, var(--red-deep), transparent);
+}
+
+.dept-section__divider span {
+  width: 8px;
+  height: 8px;
+  background: var(--red-deep);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+.dept-section__divider span:nth-child(2) {
+  background: var(--yellow);
+}
+
+.dept-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1.25rem, 3vw, 2rem);
+}
+
+.dept-card {
+  width: min(100%, 280px);
+  text-decoration: none;
+  color: inherit;
+  text-align: center;
+}
+
+.dept-card__shell {
+  background: #fff;
+  border-radius: var(--radius-xl);
+  box-shadow: 0 8px 28px rgba(31, 31, 31, 0.08);
+  padding: 0.65rem;
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
+}
+
+.dept-card:hover .dept-card__shell {
+  box-shadow: 0 16px 44px rgba(168, 0, 0, 0.12);
+  transform: translateY(-4px);
+}
+
+.dept-card__frame {
+  display: inline-block;
+  border: 2px solid transparent;
+  border-radius: var(--radius-lg);
+  padding: 0;
+  margin: 0.35rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.dept-card:hover .dept-card__frame {
+  padding: 0.55rem;
+  border-color: var(--red-deep);
+}
+
+.dept-card__img {
+  position: relative;
+  width: min(240px, 72vw);
+  height: 220px;
+  margin: 0 auto;
+  border-radius: var(--radius-lg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  transition: transform 0.4s ease;
+}
+
+.dept-card:hover .dept-card__img {
+  transform: scale(1.02);
+}
+
+.dept-card__img::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 0;
+  background: linear-gradient(180deg, transparent, var(--red-deep));
+  border-radius: 50px 50px 10px 10px;
+  transition: height 0.35s ease;
+  z-index: 1;
+}
+
+.dept-card:hover .dept-card__img::before {
+  height: 72px;
+}
+
+.dept-card--full:hover .dept-card__img::before {
+  height: 100%;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, rgba(168, 0, 0, 0.15), rgba(168, 0, 0, 0.88));
+}
+
+.dept-card__label {
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: var(--primary-deep);
+  margin: 0.85rem 0.5rem 0.25rem;
+  line-height: 1.4;
+  transition: color 0.25s ease;
+}
+
+.dept-card:hover .dept-card__label {
+  color: var(--red-deep);
+}
+
+.dept-card__meta {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-light);
+  margin: 0 0.5rem 0.75rem;
+}
+
+.dept-section.is-visible .dept-card {
+  animation: deptCardIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.dept-section.is-visible .dept-card:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.dept-section.is-visible .dept-card:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+@keyframes deptCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.dept-faculty-cta {
+  text-align: center;
+  padding-block: clamp(2rem, 4vw, 3rem);
+  background: linear-gradient(135deg, var(--primary-deep) 0%, var(--red-dark) 100%);
+  color: #fff;
+}
+
+.dept-faculty-cta h2 {
+  color: #fff;
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  margin: 0 0 0.5rem;
+}
+
+.dept-faculty-cta p {
+  opacity: 0.9;
+  margin: 0 0 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .dept-card__img {
+    width: 100%;
+    height: 200px;
+  }
+
+  .dept-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dept-section.is-visible .dept-card {
+    animation: none;
+  }
+
+  .dept-card:hover .dept-card__shell,
+  .dept-card:hover .dept-card__img {
+    transform: none;
+  }
+}
+

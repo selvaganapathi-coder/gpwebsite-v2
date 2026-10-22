@@ -1,0 +1,191 @@
+/**
+ * Site loader · page progress · unreachable “Go” screen
+ */
+
+.site-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(196, 163, 90, 0.12) 0%, transparent 55%),
+    linear-gradient(165deg, #2a060a 0%, #3d080e 45%, #6e1018 100%);
+  color: #fff;
+  text-align: center;
+}
+
+.site-loader[hidden] {
+  display: none !important;
+}
+
+.site-loader__card {
+  width: min(22rem, 100%);
+  padding: 1.75rem 1.35rem 1.5rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(196, 163, 90, 0.35);
+  border-top: 3px solid var(--gold, #c4a35a);
+}
+
+.site-loader__brand {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-display, 'Cormorant Garamond', Georgia, serif);
+  font-size: clamp(1.45rem, 4vw, 1.85rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.site-loader__tag {
+  margin: 0 0 1.35rem;
+  font-family: var(--font-sans, 'Poppins', sans-serif);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-bright, #d4b86a);
+}
+
+.site-loader__spinner {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0 auto 1.1rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top-color: var(--gold, #c4a35a);
+  border-radius: 50%;
+  animation: site-loader-spin 0.75s linear infinite;
+}
+
+.site-loader__msg {
+  margin: 0;
+  font-family: var(--font-sans, 'Poppins', sans-serif);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.site-loader__hint {
+  margin: 0.65rem 0 0;
+  font-family: var(--font-sans, 'Poppins', sans-serif);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.site-loader__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  justify-content: center;
+  margin-top: 1.25rem;
+}
+
+.site-loader__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 7.5rem;
+  padding: 0.65rem 1.25rem;
+  border: none;
+  border-radius: 4px;
+  font-family: var(--font-sans, 'Poppins', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.site-loader__btn--go {
+  background: var(--gold, #c4a35a);
+  color: var(--crimson-deep, #3d080e);
+}
+
+.site-loader__btn--go:hover,
+.site-loader__btn--go:focus-visible {
+  background: var(--gold-bright, #d4b86a);
+  color: var(--crimson-deep, #3d080e);
+}
+
+.site-loader__btn--ghost {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.site-loader__btn--ghost:hover,
+.site-loader__btn--ghost:focus-visible {
+  border-color: var(--gold, #c4a35a);
+  color: var(--gold-bright, #d4b86a);
+}
+
+@keyframes site-loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-loader__spinner {
+    animation: none;
+    border-top-color: var(--gold, #c4a35a);
+    opacity: 0.85;
+  }
+
+  .site-loader__btn {
+    transition: none;
+  }
+}
+
+/* Thin route progress bar */
+.page-route-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10001;
+  height: 3px;
+  pointer-events: none;
+  background: transparent;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.page-route-loader.is-active {
+  opacity: 1;
+}
+
+.page-route-loader__bar {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--gold, #c4a35a), var(--gold-bright, #d4b86a));
+  box-shadow: 0 0 8px rgba(196, 163, 90, 0.55);
+}
+
+.page-route-loader.is-active .page-route-loader__bar {
+  animation: page-route-load 0.9s ease-out forwards;
+}
+
+@keyframes page-route-load {
+  0% {
+    width: 0;
+  }
+  70% {
+    width: 78%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-route-loader.is-active .page-route-loader__bar {
+    animation: none;
+    width: 100%;
+  }
+}

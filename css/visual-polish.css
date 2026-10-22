@@ -1,0 +1,608 @@
+/**
+ * Visual polish pack — GP crimson/gold
+ * Hero grain · section rhythm · title draw · approvals · story hover · glass header · mobile density · footer
+ */
+
+/* ═══════════════════════════════════════════
+   1. Hero atmosphere — vignette + film grain
+   ═══════════════════════════════════════════ */
+.hero--srec,
+.hero--home {
+  isolation: isolate;
+}
+
+.hero--srec::before,
+.hero--home::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 95% 80% at 50% 45%, transparent 35%, rgba(12, 2, 4, 0.45) 100%),
+    radial-gradient(ellipse 60% 50% at 18% 80%, rgba(61, 8, 14, 0.35), transparent 70%);
+  mix-blend-mode: multiply;
+  opacity: 0.85;
+}
+
+.hero--srec .hero__overlay::before,
+.hero--home .hero__overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.22;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  mix-blend-mode: soft-light;
+}
+
+/* Keep gold bottom line above grain */
+.hero--srec::after,
+.hero--home::after {
+  z-index: 4;
+}
+
+/* ═══════════════════════════════════════════
+   2. Section rhythm — gold / white / crimson bands
+   ═══════════════════════════════════════════ */
+
+/* Soft gold wash sections */
+.approvals-wall,
+.home-about,
+.home-courses,
+.home-attributes,
+.home-news,
+.home-careers,
+.about-discover,
+.about-highlights,
+.campus-facilities,
+.facilities-section,
+.about-vm,
+.dept-grid-section {
+  background:
+    radial-gradient(ellipse 80% 55% at 6% 0%, rgba(196, 163, 90, 0.12), transparent 50%),
+    linear-gradient(180deg, #f7f3ec 0%, #fbfaf8 55%, #fff 100%) !important;
+}
+
+/* Clean white sections */
+.home-campus-show,
+.home-people,
+.home-programs,
+.about-approvals,
+.campus-labs,
+.section--soft,
+.media-feed,
+.events-calendar {
+  background: #fff !important;
+}
+
+/* Deep crimson CTA / outcome bands */
+.home-admin-cta,
+.page-cta-band,
+.home-outcomes-band,
+.about-cta-band {
+  background:
+    linear-gradient(165deg, #2a060a 0%, #3d080e 42%, #6e1018 100%) !important;
+  color: rgba(255, 255, 255, 0.88);
+  position: relative;
+}
+
+.home-admin-cta::before,
+.page-cta-band::before,
+.home-outcomes-band::before,
+.about-cta-band::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold, #c4a35a) 30%, var(--gold-bright, #d4b86a) 70%, transparent);
+  pointer-events: none;
+}
+
+.home-admin-cta .section__title,
+.page-cta-band .section__title,
+.home-outcomes-band .section__title,
+.about-cta-band .section__title {
+  color: #fff;
+}
+
+.home-admin-cta .section__desc,
+.page-cta-band .section__desc,
+.home-outcomes-band .section__desc,
+.about-cta-band p {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* ═══════════════════════════════════════════
+   3. Title underline — draw left → right
+   ═══════════════════════════════════════════ */
+.title_border {
+  transform: scaleX(0) !important;
+  transform-origin: left center !important;
+  opacity: 0;
+  transition:
+    opacity 0.45s var(--anim-ease, cubic-bezier(0.16, 1, 0.3, 1)) 0.08s,
+    transform 0.7s var(--anim-ease, cubic-bezier(0.16, 1, 0.3, 1)) 0.08s !important;
+}
+
+.title_border--left {
+  transform-origin: left center !important;
+}
+
+/* Centered titles still draw L→R across the underline bar */
+.section__header .title_border:not(.title_border--left),
+.title-area .title_border:not(.title_border--left) {
+  transform-origin: left center !important;
+}
+
+.fade-up.visible .title_border,
+.slideinup.visible .title_border,
+.visible .title_border,
+.as-animated .title_border,
+.title_border.anim-reveal.visible,
+.title_border.anim-reveal.as-animated {
+  opacity: 1 !important;
+  transform: scaleX(1) !important;
+}
+
+/* Soft gold shimmer after draw */
+.fade-up.visible .title_border::after,
+.visible .title_border::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(212, 184, 106, 0.55), transparent);
+  transform: translateX(-120%);
+  animation: titleShimmer 1.1s ease 0.55s both;
+  pointer-events: none;
+}
+
+.title_border {
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes titleShimmer {
+  to {
+    transform: translateX(120%);
+  }
+}
+
+/* ═══════════════════════════════════════════
+   4. Approvals wall — plaque / display code
+   ═══════════════════════════════════════════ */
+.approvals-wall__board {
+  border-top: 1px solid rgba(196, 163, 90, 0.45) !important;
+  border-bottom: 1px solid rgba(196, 163, 90, 0.45) !important;
+  box-shadow: 0 18px 40px rgba(61, 8, 14, 0.06);
+}
+
+.approvals-wall__code {
+  padding: clamp(1.6rem, 4vw, 2.75rem) clamp(1.35rem, 3.2vw, 2.25rem) !important;
+}
+
+.approvals-wall__code-value {
+  font-size: clamp(4rem, 10vw, 6.25rem) !important;
+  font-weight: 700;
+  letter-spacing: -0.03em !important;
+  text-shadow: 0 4px 28px rgba(0, 0, 0, 0.35);
+  line-height: 0.9 !important;
+}
+
+.approvals-wall__code-label {
+  letter-spacing: 0.18em !important;
+  color: rgba(212, 184, 106, 0.85) !important;
+}
+
+.approvals-wall__creds {
+  background:
+    linear-gradient(180deg, rgba(255, 252, 248, 0.96), #fff) !important;
+}
+
+.approvals-wall__creds li {
+  border-left: 1px solid rgba(196, 163, 90, 0.28) !important;
+  position: relative;
+}
+
+.approvals-wall__creds li::before {
+  content: '';
+  position: absolute;
+  top: 1.15rem;
+  left: 0;
+  width: 2px;
+  height: 2.25rem;
+  background: var(--gold, #c4a35a);
+  opacity: 0.7;
+}
+
+.approvals-wall__cred-kicker {
+  color: var(--gold-dark, #9a7d3a) !important;
+  font-size: 0.64rem !important;
+}
+
+.approvals-wall__cred strong {
+  font-size: clamp(1.15rem, 2vw, 1.45rem) !important;
+  font-weight: 600 !important;
+}
+
+.approvals-wall__cred-detail {
+  font-size: 0.8rem !important;
+  color: rgba(61, 8, 14, 0.55) !important;
+}
+
+.approvals-wall__cred {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  height: 100%;
+}
+
+.approvals-wall__cred em {
+  font-size: 0.72rem;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold-dark, #9a7d3a);
+  margin-top: auto;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(196, 163, 90, 0.22);
+}
+
+/* ═══════════════════════════════════════════
+   5. Image story hover — scale + gold edge
+   ═══════════════════════════════════════════ */
+.facilities-card__hit,
+.facilities-featured__img--btn,
+.campus-lab-tile--btn,
+.home-campus-show__panel--btn,
+.amc-photo--btn,
+.media-news-card--clickable,
+.about-highlight-card,
+.home-campus-show__panel,
+.campus-lab-tile,
+.advanced-gallery-item,
+.facilities-card {
+  transition:
+    transform 0.45s var(--anim-ease, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow 0.45s ease,
+    outline-color 0.35s ease;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .facilities-card__hit:hover,
+  .facilities-featured__img--btn:hover,
+  .campus-lab-tile--btn:hover,
+  .home-campus-show__panel--btn:hover,
+  .amc-photo--btn:hover,
+  .media-news-card--clickable:hover .media-news-card__media,
+  .about-highlight-card:hover .about-highlight-card__img,
+  .home-campus-show__panel:hover,
+  .campus-lab-tile:hover,
+  .advanced-gallery-item:hover,
+  .facilities-card:hover .facilities-card__img {
+    transform: scale(1.03);
+    box-shadow:
+      0 0 0 1px rgba(196, 163, 90, 0.65),
+      0 0 0 4px rgba(196, 163, 90, 0.18),
+      0 16px 36px rgba(61, 8, 14, 0.16);
+  }
+
+  .facilities-card:hover,
+  .campus-lab-tile:hover,
+  .about-highlight-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .facilities-card:hover .facilities-card__img img,
+  .campus-lab-tile:hover img,
+  .home-campus-show__panel:hover img,
+  .advanced-gallery-item:hover img,
+  .about-highlight-card:hover img,
+  .amc-photo--btn:hover img {
+    transform: scale(1.06);
+  }
+}
+
+.facilities-card__img img,
+.campus-lab-tile img,
+.home-campus-show__panel img,
+.advanced-gallery-item img,
+.about-highlight-card__img img,
+.amc-photo__media img,
+.facilities-featured__img img {
+  transition: transform 0.55s var(--anim-ease, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+/* ═══════════════════════════════════════════
+   6. Sticky header glass
+   ═══════════════════════════════════════════ */
+.site-header {
+  transition:
+    box-shadow 0.35s ease,
+    background 0.35s ease,
+    border-color 0.35s ease,
+    backdrop-filter 0.35s ease;
+}
+
+.site-header .header {
+  transition:
+    background 0.35s ease,
+    backdrop-filter 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.site-header.scrolled .header,
+.site-header.header--compact .header {
+  background: rgba(255, 252, 248, 0.82) !important;
+  backdrop-filter: blur(14px) saturate(1.25);
+  -webkit-backdrop-filter: blur(14px) saturate(1.25);
+  border-bottom: 1px solid rgba(196, 163, 90, 0.5) !important;
+  box-shadow: 0 10px 30px rgba(61, 8, 14, 0.08);
+}
+
+.site-header.scrolled {
+  box-shadow: none;
+}
+
+.site-header.scrolled .logo__name,
+.site-header.header--compact .logo__name {
+  color: var(--crimson-deep, #3d080e);
+}
+
+/* ═══════════════════════════════════════════
+   7. Mobile density — tighter .space
+   ═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  :root {
+    --section-space-mobile: 2.15rem;
+    --section-space: 2.25rem;
+  }
+
+  .space,
+  .space-top {
+    padding-top: 2.15rem !important;
+  }
+
+  .space,
+  .space-bottom {
+    padding-bottom: 2.15rem !important;
+  }
+
+  .space-extra,
+  .space-extra-top {
+    padding-top: 2.5rem !important;
+  }
+
+  .space-extra,
+  .space-extra-bottom {
+    padding-bottom: 2.5rem !important;
+  }
+
+  .section {
+    padding-block: 2.15rem;
+  }
+
+  .section__header {
+    margin-bottom: 1rem;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   8. Footer lift — gradient + gold hairline + reveal
+   ═══════════════════════════════════════════ */
+.footer {
+  position: relative;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(110, 16, 24, 0.55), transparent 55%),
+    linear-gradient(175deg, #1a0407 0%, #3d080e 38%, #2a060a 100%) !important;
+  padding-top: clamp(2rem, 4vw, 3rem) !important;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gold, #c4a35a) 22%,
+    var(--gold-bright, #d4b86a) 50%,
+    var(--gold, #c4a35a) 78%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.footer.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.85s var(--anim-ease, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform 0.85s var(--anim-ease, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.footer.fade-up.visible,
+.footer.fade-up.as-animated {
+  opacity: 1;
+  transform: none;
+}
+
+.footer__brand-name {
+  color: var(--gold-bright, #d4b86a);
+}
+
+.footer h4 {
+  color: rgba(212, 184, 106, 0.9);
+}
+
+.footer-portal {
+  border-color: rgba(196, 163, 90, 0.22) !important;
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    background 0.35s ease;
+}
+
+.footer-portal:hover {
+  border-color: rgba(196, 163, 90, 0.55) !important;
+  background: rgba(196, 163, 90, 0.1) !important;
+  transform: translateY(-2px);
+}
+
+.footer__bottom {
+  border-top: 1px solid rgba(196, 163, 90, 0.22);
+  margin-top: 1.75rem;
+  padding-top: 1rem;
+}
+
+/* ═══════════════════════════════════════════
+   Reduced motion
+   ═══════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .hero--srec::before,
+  .hero--home::before,
+  .hero--srec .hero__overlay::before,
+  .hero--home .hero__overlay::before {
+    opacity: 0.35;
+  }
+
+  .title_border,
+  .fade-up.visible .title_border::after,
+  .visible .title_border::after,
+  .footer.fade-up,
+  .footer-portal {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .title_border {
+    opacity: 1 !important;
+    transform: scaleX(1) !important;
+  }
+
+  .footer.fade-up {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   Content protect — public site only (Admin off)
+   Watermark · blur-when-away · no save/drag
+   ═══════════════════════════════════════════ */
+html.content-protect img,
+html.content-protect picture,
+html.content-protect video,
+html.content-protect canvas,
+html.content-protect .content-protect-media {
+  -webkit-user-drag: none;
+  user-drag: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+html.content-protect #site-root {
+  -webkit-touch-callout: none;
+}
+
+/* Visible brand watermark on photo containers */
+html.content-protect .hero__media,
+html.content-protect .hero__slide,
+html.content-protect .course-detail__media,
+html.content-protect .feature-list__icon,
+html.content-protect .gallery-item,
+html.content-protect .about-mgmt-story__media,
+html.content-protect .campus-lab-card__media,
+html.content-protect .home-about__media,
+html.content-protect .people-card__photo,
+html.content-protect figure:has(> img),
+html.content-protect .content-protect-media {
+  position: relative;
+  isolation: isolate;
+}
+
+html.content-protect .hero__media::after,
+html.content-protect .hero__slide::after,
+html.content-protect .course-detail__media::after,
+html.content-protect .feature-list__icon::after,
+html.content-protect .gallery-item::after,
+html.content-protect .about-mgmt-story__media::after,
+html.content-protect .campus-lab-card__media::after,
+html.content-protect .home-about__media::after,
+html.content-protect .people-card__photo::after,
+html.content-protect figure:has(> img)::after,
+html.content-protect .content-protect-media::after {
+  content: var(--gp-watermark, 'G.P. COLLEGE · Code 889');
+  position: absolute;
+  inset: auto 0.65rem 0.55rem auto;
+  z-index: 3;
+  padding: 0.28rem 0.55rem;
+  font-family: var(--font-display, Georgia, serif);
+  font-size: clamp(0.62rem, 1.4vw, 0.78rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(61, 8, 14, 0.55);
+  pointer-events: none;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  max-width: min(90%, 16rem);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Diagonal repeat mark for large photo planes */
+html.content-protect .hero__media::before,
+html.content-protect .course-detail__media::before,
+html.content-protect .gallery-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    -28deg,
+    transparent 0,
+    transparent 72px,
+    rgba(255, 255, 255, 0.06) 72px,
+    rgba(255, 255, 255, 0.06) 73px
+  );
+  opacity: 0.9;
+}
+
+/* Prefer displaying images at contained web sizes */
+html.content-protect img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Blur / veil when tab or window loses focus */
+html.content-protect--away #site-root,
+html.content-protect--away .admin-shell,
+html.content-protect--away .admin-login {
+  filter: blur(14px) brightness(0.55);
+  transition: filter 0.15s ease;
+  pointer-events: none;
+  user-select: none;
+}
+
+html.content-protect--away::after {
+  content: 'Content protected · return to this tab';
+  position: fixed;
+  inset: 0;
+  z-index: 2147483646;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  text-align: center;
+  font-family: var(--font-display, Georgia, serif);
+  font-size: clamp(1rem, 3vw, 1.35rem);
+  color: #fff;
+  background: rgba(10, 4, 6, 0.55);
+  pointer-events: none;
+}

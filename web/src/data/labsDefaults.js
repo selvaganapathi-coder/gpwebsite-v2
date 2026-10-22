@@ -1,0 +1,138 @@
+const GP = 'https://gppharmacycollege.com/wp-content/uploads/2025/03'
+
+/** 16 laboratories — photo + brief description */
+export const TOTAL_LABS = 16
+
+export const DEFAULT_LABS_INTRO =
+  'Sixteen laboratories support pharmaceutics, chemistry, analysis, pharmacology, practice training, and allied pharmacy skills.'
+
+export const DEFAULT_LABS = [
+  {
+    id: 'pharmaceutics',
+    index: '01',
+    title: 'Pharmaceutics Lab',
+    image: `${GP}/Pharmaceutics-lab.jpg`,
+    body: 'Prepare and evaluate basic formulations such as syrups, liniments, lozenges, and simple dispensed medicines.',
+    focus: ['Formulation', 'Dispensing'],
+  },
+  {
+    id: 'chemistry',
+    index: '02',
+    title: 'Pharmaceutical Chemistry Lab',
+    image: `${GP}/pharm-chemistry-lab.jpg`,
+    body: 'Organic and medicinal chemistry practicals covering synthesis and basic structural understanding.',
+    focus: ['Synthesis', 'Organic chemistry'],
+  },
+  {
+    id: 'pharmacology',
+    index: '03',
+    title: 'Pharmacology Lab',
+    image: `${GP}/pharmacology-lab.jpg`,
+    body: 'Study drug action using apparatus such as Rota Rod, analgesiometer, and related screening tools.',
+    focus: ['Drug action', 'Screening tools'],
+  },
+  {
+    id: 'pharmacognosy',
+    index: '04',
+    title: 'Pharmacognosy Lab',
+    image: `${GP}/pharmacognosy-lab.jpg`,
+    body: 'Identify and study medicinal plants and natural drugs with extraction and microscopy tools.',
+    focus: ['Herbal drugs', 'Extraction'],
+  },
+  {
+    id: 'analysis',
+    index: '05',
+    title: 'Pharmaceutical Analysis Lab',
+    image: `${GP}/G.P.Pharmacy-College10.jpg`,
+    body: 'Learn quality-control methods for assay, purity, and pharmaceutical standards.',
+    focus: ['QC', 'Assay methods'],
+  },
+  {
+    id: 'physical-pharmaceutics',
+    index: '06',
+    title: 'Physical Pharmaceutics Lab',
+    image: `${GP}/G.P.Pharmacy-College2.jpg`,
+    body: 'Explore solubility, rheology, stability, and other physicochemical properties of drugs.',
+    focus: ['Physical pharmacy', 'Stability'],
+  },
+  {
+    id: 'machine-room',
+    index: '07',
+    title: 'Machine Room / Industrial Pharmacy',
+    image: `${GP}/G.P.Pharmacy-College4.jpg`,
+    body: 'Hands-on practice with tablet, capsule, and other small-scale manufacturing equipment.',
+    focus: ['Tableting', 'Scale-up basics'],
+  },
+  {
+    id: 'microbiology',
+    index: '08',
+    title: 'Microbiology Lab',
+    image: `${GP}/G.P.Pharmacy-College17.jpg`,
+    body: 'Aseptic technique, culture handling, and pharmaceutical microbiology practicals.',
+    focus: ['Aseptic work', 'Cultures'],
+  },
+  {
+    id: 'biochemistry',
+    index: '09',
+    title: 'Biochemistry Lab',
+    image: `${GP}/G.P.Pharmacy-College12.jpg`,
+    body: 'Biochemical estimations and clinical chemistry basics used in pharmacy curricula.',
+    focus: ['Biochemical tests', 'Clinical basics'],
+  },
+  {
+    id: 'hap',
+    index: '10',
+    title: 'Human Anatomy & Physiology Lab',
+    image: `${GP}/G.P.Pharmacy-College20.jpg`,
+    body: 'Learn body systems with charts, models, and skeleton-based teaching aids.',
+    focus: ['Models', 'Physiology'],
+  },
+  {
+    id: 'pharmacy-practice',
+    index: '11',
+    title: 'Pharmacy Practice / Model Pharmacy',
+    image: `${GP}/G.P.Pharmacy-College5-1.jpg`,
+    body: 'Practice counselling, prescription handling, and hospital-style pharmacy simulations.',
+    focus: ['Counselling', 'Prescriptions'],
+  },
+  {
+    id: 'instrument-room',
+    index: '12',
+    title: 'Central Instrument Room',
+    image: `${GP}/G.P.Pharmacy-College14.jpg`,
+    body: 'Shared instruments for analysis, research projects, and advanced practical work.',
+    focus: ['Instruments', 'PG support'],
+  },
+  {
+    id: 'computer',
+    index: '13',
+    title: 'Computer Lab',
+    image: `${GP}/G.P.Pharmacy-College22.jpg`,
+    body: 'Pharmacy software, literature search, and digital learning for academic work.',
+    focus: ['Software', 'e-Learning'],
+  },
+  {
+    id: 'language',
+    index: '14',
+    title: 'Language Lab',
+    image: `${GP}/G.P.Pharmacy-College23.jpg`,
+    body: 'Communication practice for counselling, seminars, and professional presentations.',
+    focus: ['Communication', 'Soft skills'],
+  },
+  {
+    id: 'biotech',
+    index: '15',
+    title: 'Biotechnology Lab',
+    image: `${GP}/G.P.Pharmacy-College26.jpg`,
+    body: 'Introductory biotech and molecular concepts relevant to modern pharmacy study.',
+    focus: ['Biotech basics', 'Molecular tools'],
+  },
+  {
+    id: 'medicinal-chemistry',
+    index: '16',
+    title: 'Medicinal Chemistry Lab',
+    image: `${GP}/Pharmaceutics-lab.jpg`,
+    body: 'Understand drug molecule pathways and structure–activity ideas used in pharmacy.',
+    focus: ['Drug design', 'Synthesis'],
+  },
+]

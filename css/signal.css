@@ -1,0 +1,221 @@
+/**
+ * Signal UI — mobile dock, motion helpers, trust cues
+ */
+
+.fade-up.is-visible,
+.fade-up.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Mobile dock */
+.mobile-dock {
+  display: none;
+  position: fixed;
+  left: 50%;
+  bottom: max(0.65rem, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  z-index: 950;
+  width: min(28rem, calc(100vw - 1.25rem));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.25rem;
+  padding: 0.45rem;
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid rgba(61, 8, 14, 0.1);
+  border-top: 2px solid var(--gold, #c4a35a);
+  border-radius: 12px;
+  box-shadow: 0 10px 28px rgba(26, 18, 16, 0.16);
+  backdrop-filter: blur(10px);
+}
+
+.mobile-dock a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  min-height: 3.15rem;
+  padding: 0.35rem 0.25rem;
+  text-decoration: none;
+  color: var(--crimson-deep, #3d080e);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.mobile-dock a:hover,
+.mobile-dock a:focus-visible {
+  background: var(--gold-soft, #f5efe0);
+}
+
+.mobile-dock__ico {
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--crimson, #6e1018);
+  position: relative;
+}
+
+.mobile-dock__ico--call::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 0.4rem;
+  height: 0.4rem;
+  border: 1.5px solid var(--crimson, #6e1018);
+  border-radius: 0 40% 40% 40%;
+  transform: rotate(-35deg);
+}
+
+.mobile-dock__ico--wa {
+  background: var(--crimson, #6e1018);
+  border-color: var(--crimson, #6e1018);
+}
+
+.mobile-dock__ico--wa::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: var(--gold-bright, #d4b86a);
+}
+
+.mobile-dock__ico--parents::before,
+.mobile-dock__ico--courses::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 0.45rem;
+  height: 0.45rem;
+  border: 1.5px solid var(--crimson, #6e1018);
+  border-radius: 2px;
+}
+
+body.has-mobile-dock {
+  padding-bottom: 0;
+}
+
+@media (max-width: 900px) {
+  .mobile-dock {
+    display: grid;
+  }
+
+  body.has-mobile-dock {
+    padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .gp-assistant__toggle {
+    bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  .footer {
+    padding-bottom: 1.5rem;
+  }
+}
+
+/* GP Assistant shell (base placement) */
+.gp-assistant {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 960;
+}
+
+.gp-assistant__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: var(--btn-h, 2.75rem);
+  padding: 0.55rem 0.95rem;
+  border: none;
+  border-radius: 999px;
+  background: var(--crimson, #6e1018);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(110, 16, 24, 0.28);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.gp-assistant__panel {
+  width: min(22rem, calc(100vw - 2rem));
+  margin-bottom: 0.65rem;
+  background: #fff;
+  border: 1px solid rgba(61, 8, 14, 0.1);
+  border-top: 3px solid var(--gold, #c4a35a);
+  border-radius: 10px;
+  box-shadow: 0 16px 40px rgba(26, 18, 16, 0.18);
+  overflow: hidden;
+}
+
+.gp-assistant__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  background: var(--crimson-deep, #3d080e);
+  color: #fff;
+}
+
+.gp-assistant__header span {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.gp-assistant__close {
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.gp-assistant__messages {
+  max-height: 16rem;
+  overflow-y: auto;
+  padding: 0.85rem 1rem;
+}
+
+.gp-assistant__prompts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0 1rem 0.65rem;
+}
+
+.gp-assistant__form {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.75rem 1rem 1rem;
+  border-top: 1px solid rgba(61, 8, 14, 0.08);
+}
+
+.gp-assistant__form input {
+  flex: 1;
+  min-width: 0;
+  min-height: 2.5rem;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid rgba(61, 8, 14, 0.15);
+  border-radius: 4px;
+}
+
+.gp-assistant__form button {
+  border: none;
+  border-radius: 4px;
+  background: var(--crimson, #6e1018);
+  color: #fff;
+  padding: 0 0.85rem;
+  min-height: 2.5rem;
+  cursor: pointer;
+}
