@@ -68,9 +68,11 @@ const MOBILE_NAV_GROUPS = [
   },
   {
     label: 'Explore',
+    items: [
       { to: '/amc', label: 'AMC – PvPI', id: 'amc', icon: '•' },
       { to: '/research', label: 'Research', id: 'research', icon: '•' },
       { to: '/placements', label: 'Placements', id: 'placements', icon: '•' },
+    ],
   },
   {
     label: 'Also',
@@ -228,6 +230,7 @@ export default function Header() {
         </div>
 
         <nav className="nav nav--desktop" aria-label="Primary">
+          <div className="container nav__inner">
             {NAV.map((item) => {
               if (item.children || item.groups) {
                 const kids = item.children || item.groups.flatMap((g) => g.items)
@@ -248,7 +251,7 @@ export default function Header() {
                       type="button"
                       className="nav__dropdown-toggle"
                       aria-expanded={open}
-                        className={`nav__dropdown-menu nav__mega${item.id === 'about' ? ' nav__mega--about' : ''}${item.id === 'activities' ? ' nav__mega--activities' : ''}`}
+                      onClick={(e) => {
                         e.stopPropagation()
                         setOpenDropdown(open ? null : item.id)
                       }}

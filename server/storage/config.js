@@ -5,6 +5,7 @@
  *   json      → server/data/cms.json (local / VPS default)
  *   blobs     → Netlify Blobs (automatic on Netlify when USE_NETLIFY_BLOBS=1)
  *   mongodb   → Cloud MongoDB (set MONGODB_URI)
+ *   memory    → No database: in-process store seeded from defaults (default on Vercel)
  *
  * Changing the driver does not change the website or Admin UI —
  * only where the same JSON document is stored.
@@ -15,6 +16,10 @@ export function getStorageMode() {
   if (raw === 'mongodb' || raw === 'mongo') return 'mongodb'
   if (raw === 'blobs' || raw === 'blob') return 'blobs'
   if (raw === 'json' || raw === 'file') return 'json'
+  if (raw === 'memory' || raw === 'none' || raw === 'mem') return 'memory'
+
+  // Vercel serverless (no database yet): keep CMS in memory, seeded from defaults
+  if (process.env.VERCEL === '1' || process.env.VERCEL === 'true') return 'memory'
 
   // Auto: Netlify → blobs, else json
   if (
@@ -45,5 +50,6 @@ export function describeStorage() {
     return `mongodb://${dbName}.${collection} (${docId})`
   }
   if (mode === 'blobs') return 'netlify-blobs:gp-cms/cms-data'
+  if (mode === 'memory') return 'memory (no database — resets on cold start)'
   return 'file:server/data/cms.json'
 }

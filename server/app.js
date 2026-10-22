@@ -72,6 +72,7 @@ export async function createApp() {
         if (!origin) return cb(null, true)
         if (origins.includes(origin)) return cb(null, true)
         if (allowAllNetlify && /\.netlify\.app$/i.test(origin)) return cb(null, true)
+        if (process.env.VERCEL && /\.vercel\.app$/i.test(origin)) return cb(null, true)
         return cb(null, false)
       },
       credentials: true,
@@ -327,7 +328,7 @@ export async function createApp() {
   })
 
   // Local Node also serves legacy static HTML from repo root
-  if (!process.env.NETLIFY) {
+  if (!process.env.NETLIFY && !process.env.VERCEL) {
     const siteRoot = path.join(__dirname, '..')
     app.use('/uploads', express.static(path.join(__dirname, 'uploads'), {
       fallthrough: true,
@@ -339,4 +340,28 @@ export async function createApp() {
   }
 
   return app
+}
+
+/**
+ * Default export for Vercel (Express preset, Root Directory = server).
+ * Vercel picks up server/app.js and calls the default export for every request.
+ * The app is created once per warm instance; local `node index.js` keeps using createApp().
+ */
+let appPromise
+export default async function vercelHandler(req, res) {
+  try {
+    if (!appPromise) {
+      appPromise = createApp().catch((err) => {
+        appPromise = undefined
+        throw err
+      })
+    }
+    const app = await appPromise
+    return app(req, res)
+  } catch (err) {
+    console.error('[cms] API failed to start:', err)
+    res.statusCode = 500
+    res.setHeader('content-type', 'application/json')
+    res.end(JSON.stringify({ error: 'API failed to start' }))
+  }
 }

@@ -150,6 +150,8 @@ export function assetUrl(url) {
   const raw = String(url).trim()
   if (!raw || /^javascript:/i.test(raw)) return ''
   if (/^https?:\/\//i.test(raw) || raw.startsWith('//') || raw.startsWith('data:')) return raw
+  // CMS uploads are served by the API; prefix its origin when the API is on another domain
+  if (raw.startsWith('/uploads/')) return `${import.meta.env.VITE_CMS_API_URL || ''}${raw}`
   if (raw.startsWith('/')) return raw
   return `/${raw}`
 }

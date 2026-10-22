@@ -19,7 +19,12 @@ const UPLOAD_DIR = path.join(__dirname, 'uploads')
 
 const ALLOWED_MIME = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/gif'])
 
+function isVercel() {
+  return process.env.VERCEL === '1' || process.env.VERCEL === 'true'
+}
+
 function useNetlifyBlobs() {
+  if (isVercel()) return false
   return (
     process.env.USE_NETLIFY_BLOBS === '1' ||
     process.env.NETLIFY === 'true' ||
@@ -100,7 +105,7 @@ async function getUploadBlobStore() {
 }
 
 export function ensureUploadDir() {
-  if (useNetlifyBlobs()) return
+  if (useNetlifyBlobs() || isVercel()) return
   fs.mkdirSync(UPLOAD_DIR, { recursive: true })
 }
 
@@ -117,6 +122,11 @@ export async function uploadImage(file, baseUrl) {
 
   if (useNetlifyBlobs()) {
     return saveToBlobs(file, kind)
+  }
+
+  // Vercel without Cloudinary: read-only filesystem and no DB, so keep the image inline.
+  if (isVercel()) {
+    return `data:${kind.mime};base64,${file.buffer.toString('base64')}`
   }
 
   return saveLocal(file, kind)
