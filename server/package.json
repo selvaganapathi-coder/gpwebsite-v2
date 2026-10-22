@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "node --watch index.js",
+    "check": "node --check index.js && node --check app.js && node --check auth.js && node --check store.js && node --check security.js && node --check sanitize.js && node --check upload.js",
     "backup": "node scripts/backup-cms.cjs",
     "cms:status": "node scripts/migrate-cms.mjs status",
     "cms:export": "node scripts/migrate-cms.mjs export",
