@@ -4,6 +4,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "build": "npm run build:server && npm run build:web",
+    "build:server": "npm run check --prefix server",
+    "build:web": "npm run build --prefix web",
     "build:netlify": "npm install --prefix server && npm install --prefix web && npm run build --prefix web",
     "dev:web": "npm run dev --prefix web",
     "dev:cms": "npm start --prefix server",
