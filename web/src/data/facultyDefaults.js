@@ -131,9 +131,7 @@ export function sortFacultyMembers(members) {
 export function mergeFaculty(cmsFaculty) {
   const base = DEFAULT_FACULTY
   const source =
-    Array.isArray(cmsFaculty?.members) && cmsFaculty.members.length
-      ? cmsFaculty.members
-      : base.members
+    cmsFaculty && Array.isArray(cmsFaculty.members) ? cmsFaculty.members : base.members
 
   const members = sortFacultyMembers(
     source.map((m, i) => normalizeFacultyMember(m, i)).filter((m) => m.published && m.name),

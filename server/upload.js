@@ -2,6 +2,8 @@ import fs from 'fs'
 import path from 'path'
 import crypto from 'crypto'
 import { fileURLToPath } from 'url'
+import { getStorageMode } from './storage/config.js'
+import { readMongoFile, saveMongoFile } from './storage/mongodbDriver.js'
 
 function resolveDirname() {
   try {
@@ -105,7 +107,7 @@ async function getUploadBlobStore() {
 }
 
 export function ensureUploadDir() {
-  if (useNetlifyBlobs() || isVercel()) return
+  if (useNetlifyBlobs() || isVercel() || getStorageMode() === 'mongodb') return
   fs.mkdirSync(UPLOAD_DIR, { recursive: true })
 }
 
@@ -120,11 +122,19 @@ export async function uploadImage(file, baseUrl) {
     return uploadToCloudinary(file, cloudName, apiKey, apiSecret)
   }
 
+  // Atlas GridFS: persists across Vercel instances. Files stay out of the CMS
+  // document (16 MB BSON limit). assertSafeImage already caps each file at 5 MB.
+  if (getStorageMode() === 'mongodb') {
+    const safeName = safeUploadName(file.originalname, kind.ext)
+    return saveMongoFile(safeName, file.buffer, kind.mime)
+  }
+
   if (useNetlifyBlobs()) {
     return saveToBlobs(file, kind)
   }
 
-  // Vercel without Cloudinary: read-only filesystem and no DB, so keep the image inline.
+  // Vercel without MongoDB or Cloudinary: the disk is ephemeral, so keep a
+  // size-capped data URL inside the CMS document until a database is configured.
   if (isVercel()) {
     return `data:${kind.mime};base64,${file.buffer.toString('base64')}`
   }
@@ -135,6 +145,10 @@ export async function uploadImage(file, baseUrl) {
 export async function getUploadedFile(name) {
   const safe = path.basename(String(name || ''))
   if (!safe || safe !== name || !/\.(jpe?g|png|gif|webp)$/i.test(safe)) return null
+
+  if (getStorageMode() === 'mongodb') {
+    return readMongoFile(safe)
+  }
 
   if (useNetlifyBlobs()) {
     try {

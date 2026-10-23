@@ -74,7 +74,9 @@ export function securityHeaders(_req, res, next) {
   res.setHeader('X-Frame-Options', 'DENY')
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin')
   res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()')
-  res.setHeader('Cross-Origin-Resource-Policy', 'same-site')
+  // The public site and the API are different *.vercel.app hosts (a public suffix),
+  // so same-site would block the browser from reading JSON and uploaded images.
+  res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin')
   res.removeHeader('X-Powered-By')
   if (process.env.NODE_ENV === 'production' || process.env.NETLIFY === 'true') {
     res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload')
