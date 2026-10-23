@@ -184,7 +184,7 @@ export async function fetchPublicContent() {
   try {
     const res = await fetch(apiUrl('/api/content/public'), {
       cache: 'no-store',
-      headers: { Accept: 'application/json', 'Cache-Control': 'no-cache' },
+      headers: { Accept: 'application/json' },
       signal: ctrl.signal,
     })
     if (!res.ok) throw new Error(`CMS ${res.status}`)
@@ -200,7 +200,7 @@ export async function fetchCmsHealth() {
   try {
     const res = await fetch(apiUrl('/api/health'), {
       cache: 'no-store',
-      headers: { Accept: 'application/json', 'Cache-Control': 'no-cache' },
+      headers: { Accept: 'application/json' },
       signal: ctrl.signal,
     })
     if (!res.ok) throw new Error('health failed')
