@@ -69,6 +69,7 @@ export async function login(email, password) {
   try {
     res = await fetch(apiUrl('/api/auth/login'), {
       method: 'POST',
+      cache: 'no-store',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({ email, password }),
     })
@@ -86,6 +87,7 @@ export async function fetchAdminContent() {
   const token = getToken()
   if (!token) throw new Error('Not signed in')
   const res = await fetch(apiUrl('/api/content'), {
+    cache: 'no-store',
     headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' },
   })
   if (res.status === 401) {
@@ -101,6 +103,7 @@ export async function saveAdminContent(content, { mode = 'publish' } = {}) {
   if (!token) throw new Error('Not signed in')
   const res = await fetch(apiUrl('/api/content'), {
     method: 'PUT',
+    cache: 'no-store',
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
@@ -128,6 +131,7 @@ export async function uploadImage(file) {
   body.append('file', optimized)
   const res = await fetch(apiUrl('/api/upload'), {
     method: 'POST',
+    cache: 'no-store',
     headers: { Authorization: `Bearer ${token}` },
     body,
   })
@@ -143,6 +147,7 @@ export async function uploadImage(file) {
 export async function submitEnquiry(payload) {
   const res = await fetch(apiUrl('/api/enquiries'), {
     method: 'POST',
+    cache: 'no-store',
     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
     body: JSON.stringify(payload),
   })
@@ -156,6 +161,7 @@ export async function updateEnquiryStatus(id, status) {
   if (!token) throw new Error('Not signed in')
   const res = await fetch(apiUrl(`/api/enquiries/${encodeURIComponent(id)}`), {
     method: 'PATCH',
+    cache: 'no-store',
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
@@ -177,7 +183,8 @@ export async function fetchPublicContent() {
   const timer = window.setTimeout(() => ctrl.abort(), 5000)
   try {
     const res = await fetch(apiUrl('/api/content/public'), {
-      headers: { Accept: 'application/json' },
+      cache: 'no-store',
+      headers: { Accept: 'application/json', 'Cache-Control': 'no-cache' },
       signal: ctrl.signal,
     })
     if (!res.ok) throw new Error(`CMS ${res.status}`)
@@ -192,7 +199,8 @@ export async function fetchCmsHealth() {
   const timer = window.setTimeout(() => ctrl.abort(), 3000)
   try {
     const res = await fetch(apiUrl('/api/health'), {
-      headers: { Accept: 'application/json' },
+      cache: 'no-store',
+      headers: { Accept: 'application/json', 'Cache-Control': 'no-cache' },
       signal: ctrl.signal,
     })
     if (!res.ok) throw new Error('health failed')

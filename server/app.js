@@ -4,8 +4,15 @@ import multer from 'multer'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { authMiddleware, authenticateUser, ensureDefaultUsers, signToken } from './auth.js'
-import { appendActivity, getPublicContent, loadStoreAsync, saveStoreAsync } from './store.js'
+import {
+  appendActivity,
+  getPublicContent,
+  loadStoreAsync,
+  saveStoreAsync,
+  storageErrorMessage,
+} from './store.js'
 import { ensureUploadDir, uploadImage, getUploadedFile } from './upload.js'
+import { getStorageMode } from './storage/config.js'
 import { sanitizeDeep } from './sanitize.js'
 import {
   securityHeaders,
@@ -29,15 +36,46 @@ function resolveDirname() {
 
 const __dirname = resolveDirname()
 
+function noStore(_req, res, next) {
+  res.setHeader('Cache-Control', 'private, no-store, no-cache, must-revalidate')
+  res.setHeader('Pragma', 'no-cache')
+  res.setHeader('Expires', '0')
+  res.setHeader('CDN-Cache-Control', 'no-store')
+  res.setHeader('Vercel-CDN-Cache-Control', 'no-store')
+  next()
+}
+
+async function readStore(res) {
+  try {
+    return await loadStoreAsync()
+  } catch (err) {
+    console.error('[cms] read failed:', err)
+    if (!res.headersSent) res.status(500).json({ error: storageErrorMessage(err) })
+    return null
+  }
+}
+
+async function writeStore(res, data) {
+  try {
+    return await saveStoreAsync(data)
+  } catch (err) {
+    console.error('[cms] write failed:', err)
+    if (!res.headersSent) res.status(500).json({ error: storageErrorMessage(err) })
+    return null
+  }
+}
+
 /**
  * Create the CMS Express app.
- * `getStore` / `setStore` keep an in-process cache so serverless invocations stay coherent
- * within a warm instance; Blobs persist across cold starts on Netlify.
+ * MongoDB mode reloads the document on every request so one Vercel instance
+ * cannot serve a snapshot from before another instance saved.
+ * Default users are written once, only when the user list is empty.
  */
 export async function createApp() {
-  let store = await loadStoreAsync()
-  await ensureDefaultUsers(store)
-  store = await saveStoreAsync(store)
+  const initial = await loadStoreAsync()
+  if (await ensureDefaultUsers(initial)) {
+    await saveStoreAsync(initial)
+  }
   ensureUploadDir()
 
   const app = express()
@@ -81,7 +119,8 @@ export async function createApp() {
       maxAge: 600,
     }),
   )
-  app.use(express.json({ limit: '1mb' }))
+  app.use('/api', noStore)
+  app.use(express.json({ limit: '2mb' }))
 
   const baseUrl = process.env.PUBLIC_URL || process.env.URL || `http://localhost:${process.env.PORT || 3001}`
 
@@ -104,21 +143,29 @@ export async function createApp() {
     message: 'Too many enquiries. Please wait a minute.',
   })
 
-  app.get('/api/health', publicLimit, (_req, res) => {
-    res.json({ ok: true, updatedAt: store.updatedAt })
+  app.get('/api/health', publicLimit, async (_req, res) => {
+    const store = await readStore(res)
+    if (!store) return
+    res.json({ ok: true, updatedAt: store.updatedAt, storage: getStorageMode() })
   })
 
-  app.get('/api/content/public', publicLimit, (_req, res) => {
+  app.get('/api/content/public', publicLimit, async (_req, res) => {
+    const store = await readStore(res)
+    if (!store) return
     res.json(getPublicContent(store))
   })
 
-  app.get('/api/content', authMiddleware, writeLimit, (_req, res) => {
+  app.get('/api/content', authMiddleware, writeLimit, async (_req, res) => {
+    const store = await readStore(res)
+    if (!store) return
     const copy = structuredClone(store)
     copy.users = (copy.users || []).map(({ passwordHash, ...user }) => user)
     res.json(copy)
   })
 
   app.put('/api/content', authMiddleware, writeLimit, async (req, res) => {
+    const store = await readStore(res)
+    if (!store) return
     if (!req.body || typeof req.body !== 'object' || Array.isArray(req.body)) {
       res.status(400).json({ error: 'Invalid content payload.' })
       return
@@ -185,16 +232,19 @@ export async function createApp() {
       })
     }
 
-    store = await saveStoreAsync(next)
+    const saved = await writeStore(res, next)
+    if (!saved) return
     res.json({
       ok: true,
-      updatedAt: store.updatedAt,
+      updatedAt: saved.updatedAt,
       mode: publishMode,
-      hasDraft: Boolean(store.cmsDraft),
+      hasDraft: Boolean(saved.cmsDraft),
     })
   })
 
   app.post('/api/enquiries', enquiryLimit, async (req, res) => {
+    const store = await readStore(res)
+    if (!store) return
     const body = sanitizeDeep(req.body || {})
     const name = String(body.name || '').trim().slice(0, 120)
     const phone = String(body.phone || '').trim().slice(0, 40)
@@ -216,11 +266,14 @@ export async function createApp() {
       createdAt: new Date().toISOString(),
     }
     store.enquiries = [item, ...(store.enquiries || [])].slice(0, 500)
-    store = await saveStoreAsync(store)
+    const saved = await writeStore(res, store)
+    if (!saved) return
     res.json({ ok: true, id: item.id })
   })
 
   app.patch('/api/enquiries/:id', authMiddleware, writeLimit, async (req, res) => {
+    const store = await readStore(res)
+    if (!store) return
     const id = String(req.params.id || '')
     const status = String(req.body?.status || '').trim()
     if (!['new', 'read', 'replied', 'archived'].includes(status)) {
@@ -240,11 +293,14 @@ export async function createApp() {
       by: req.user?.email || 'admin',
       note: `${id} → ${status}`,
     })
-    store = await saveStoreAsync(store)
+    const saved = await writeStore(res, store)
+    if (!saved) return
     res.json({ ok: true, enquiry: list[idx] })
   })
 
   app.post('/api/auth/login', loginLimit, async (req, res) => {
+    const store = await readStore(res)
+    if (!store) return
     const { email, password } = req.body || {}
     if (!email || !password) {
       res.status(400).json({ error: 'Email and password are required.' })
@@ -265,8 +321,15 @@ export async function createApp() {
     }
 
     clearLoginFailures(gate.key)
+    let token
+    try {
+      token = signToken(user)
+    } catch (err) {
+      res.status(500).json({ error: err.message || 'Could not start a session.' })
+      return
+    }
     res.json({
-      token: signToken(user),
+      token,
       user: { id: user.id, name: user.name, email: user.email, role: user.role },
     })
   })
@@ -296,16 +359,23 @@ export async function createApp() {
           published: true,
           createdAt: new Date().toISOString(),
         }
+        const store = await readStore(res)
+        if (!store) return
         store.media = [mediaItem, ...(store.media || [])].slice(0, 300)
         appendActivity(store, {
           action: 'upload',
           by: req.user?.email || 'admin',
           note: mediaItem.name,
         })
-        store = await saveStoreAsync(store)
+        const saved = await writeStore(res, store)
+        if (!saved) return
         res.json({ url, media: mediaItem })
       } catch (error) {
-        res.status(400).json({ error: error.message || 'Upload failed.' })
+        console.error('[cms] upload failed:', error)
+        if (res.headersSent) return
+        const raw = String(error?.message || '')
+        const db = /MONGODB_URI|mongo|ECONN|timed out|server selection|authentication failed/i.test(raw)
+        res.status(400).json({ error: db ? storageErrorMessage(error) : raw || 'Upload failed.' })
       }
     })
   })
@@ -322,8 +392,9 @@ export async function createApp() {
       res.setHeader('Content-Disposition', 'inline')
       res.setHeader('Cache-Control', 'public, max-age=2592000, immutable')
       res.send(file.body)
-    } catch {
-      res.status(404).json({ error: 'Not found' })
+    } catch (err) {
+      console.error('[cms] upload read failed:', err)
+      if (!res.headersSent) res.status(500).json({ error: storageErrorMessage(err) })
     }
   })
 
@@ -360,8 +431,10 @@ export default async function vercelHandler(req, res) {
     return app(req, res)
   } catch (err) {
     console.error('[cms] API failed to start:', err)
+    const message = storageErrorMessage(err)
     res.statusCode = 500
     res.setHeader('content-type', 'application/json')
-    res.end(JSON.stringify({ error: 'API failed to start' }))
+    res.setHeader('Cache-Control', 'no-store')
+    res.end(JSON.stringify({ error: message === 'Could not read or save CMS data.' ? 'API failed to start' : message }))
   }
 }

@@ -68,10 +68,8 @@ function mergeHomepage(cmsHp, about, placements) {
   if (/^about\s+g\.?\s*p\.?\s*college/i.test(String(homeAbout.title || '').trim())) {
     homeAbout.title = base.homeAbout.title
   }
-  if (!homeAbout.facts?.length) homeAbout.facts = base.homeAbout.facts
-  if (!homeAbout.lead || String(homeAbout.lead).length > 280) {
-    homeAbout.lead = base.homeAbout.lead
-  }
+  if (!Array.isArray(homeAbout.facts)) homeAbout.facts = base.homeAbout.facts
+  if (!homeAbout.lead) homeAbout.lead = base.homeAbout.lead
   homeAbout.ctaPrimary = stripArrowLabel(homeAbout.ctaPrimary || base.homeAbout.ctaPrimary)
   homeAbout.ctaSecondary = stripArrowLabel(homeAbout.ctaSecondary || base.homeAbout.ctaSecondary)
   homeAbout.title = stripAicte(homeAbout.title)
@@ -221,7 +219,7 @@ function normalizeRecruiters(list, fallback) {
 }
 
 function normalizeNotices(list, fallback) {
-  const items = Array.isArray(list) && list.length ? list : fallback
+  const items = Array.isArray(list) ? list : fallback
   return items
     .filter((n) => n.published !== false)
     .map((n) => ({ ...n, link: n.link ? toAppPath(n.link) : '/news' }))
@@ -229,7 +227,7 @@ function normalizeNotices(list, fallback) {
 }
 
 function normalizeEvents(list, fallback) {
-  const items = Array.isArray(list) && list.length ? list : fallback
+  const items = Array.isArray(list) ? list : fallback
   return items
     .filter((e) => e.published !== false)
     .sort((a, b) => new Date(a.date) - new Date(b.date))
@@ -368,15 +366,10 @@ function alignHomepageWithSite(homepage, site) {
 
 function mergeLabs(campus) {
   const cmsLabs = Array.isArray(campus?.labs) ? campus.labs : []
-  const byId = new Map(cmsLabs.map((lab) => [lab.id, lab]))
-
-  const source =
-    cmsLabs.length >= DEFAULT_LABS.length
-      ? cmsLabs
-      : DEFAULT_LABS.map((def) => ({ ...def, ...(byId.get(def.id) || {}) }))
+  const source = cmsLabs.length ? cmsLabs : DEFAULT_LABS
 
   return source.map((lab, i) => {
-    const fallback = DEFAULT_LABS[i] || DEFAULT_LABS[0]
+    const fallback = DEFAULT_LABS.find((item) => item.id === lab.id) || DEFAULT_LABS[i] || {}
     return {
       ...fallback,
       ...lab,
@@ -659,8 +652,8 @@ export function CmsProvider({ children }) {
       labs: campus.labs,
       facilities: campus.facilities,
       campusIntro: campus.labsIntro,
-      notices: normalizeNotices(raw?.notices, SEED_NOTICES),
-      events: normalizeEvents(raw?.events, SEED_EVENTS),
+      notices: raw ? normalizeNotices(raw.notices, []) : normalizeNotices(null, SEED_NOTICES),
+      events: raw ? normalizeEvents(raw.events, []) : normalizeEvents(null, SEED_EVENTS),
       news: normalizeNews(raw?.news),
       gallery: gallerySource.map((item) => ({
         ...item,

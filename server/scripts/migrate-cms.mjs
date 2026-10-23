@@ -18,7 +18,7 @@ import { fileURLToPath } from 'url'
 import { loadStoreAsync, saveStore, mergeDefaults } from '../store.js'
 import { describeStorage, getStorageMode } from '../storage/config.js'
 import { getJsonPath, saveJson } from '../storage/jsonDriver.js'
-import { importMongoDocument, loadMongo } from '../storage/mongodbDriver.js'
+import { importMongoDocument, loadMongo, mongoDocumentExists } from '../storage/mongodbDriver.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const cmd = process.argv[2] || 'status'
@@ -39,13 +39,20 @@ async function exportJson() {
 }
 
 async function toMongo() {
+  const force = process.argv.includes('--force')
+  if ((await mongoDocumentExists()) && !force) {
+    console.error(
+      'MongoDB already has a CMS document. Refusing to overwrite existing data. Re-run with --force only if you intend to replace it.',
+    )
+    process.exit(1)
+  }
   const data = await loadStoreAsync()
   await importMongoDocument(data)
   console.log('Imported full CMS into MongoDB.')
-  console.log('Set in server/.env:')
+  console.log('Set in server/.env (and on the Vercel API project):')
   console.log('  CMS_STORAGE=mongodb')
-  console.log('  MONGODB_URI=... (your cloud URI)')
-  console.log('Then restart the CMS server. Website + Admin keep the same URLs.')
+  console.log('  MONGODB_URI=mongodb+srv://USER:PASSWORD@cluster.mongodb.net/?retryWrites=true&w=majority')
+  console.log('Startup seeds defaults only when that document is missing. It will not overwrite this import.')
 }
 
 async function fromMongo(filePath) {
@@ -78,14 +85,15 @@ const help = `
 Usage:
   node scripts/migrate-cms.mjs status
   node scripts/migrate-cms.mjs export
-  node scripts/migrate-cms.mjs to-mongo
+  node scripts/migrate-cms.mjs to-mongo [--force]
   node scripts/migrate-cms.mjs from-mongo [outfile.json]
 
-Future cloud DB switch (one place):
-  1) npm install mongodb --prefix server
+Copy an existing JSON/Blobs CMS into Atlas (skips the write if a document is already there):
+  1) Set MONGODB_URI (and CMS_STORAGE=json if the source is still cms.json)
   2) node scripts/migrate-cms.mjs to-mongo
-  3) In server/.env set CMS_STORAGE=mongodb and MONGODB_URI=...
-  4) Restart CMS — all data already transferred
+  3) On the API host set CMS_STORAGE=mongodb and MONGODB_URI
+  4) Restart. An empty database is seeded from defaults; an existing document is left as-is.
+     Pass --force only when you mean to replace the Atlas document.
 `
 
 try {

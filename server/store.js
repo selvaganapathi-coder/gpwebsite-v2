@@ -754,6 +754,39 @@ function isLambda() {
 
 let memoryStore = null
 
+/**
+ * Copy default keys that are missing entirely. Existing values — including
+ * empty arrays and empty strings — stay as stored. Used for MongoDB so a
+ * later read cannot put deleted notices, labs, or news back.
+ */
+export function fillMissing(current, defaults) {
+  if (current === undefined) return clone(defaults)
+  if (!defaults || typeof defaults !== 'object' || Array.isArray(defaults)) {
+    return current === undefined ? clone(defaults) : current
+  }
+  if (!current || typeof current !== 'object' || Array.isArray(current)) return current
+  const out = { ...current }
+  for (const key of Object.keys(defaults)) {
+    if (out[key] === undefined) out[key] = clone(defaults[key])
+    else out[key] = fillMissing(out[key], defaults[key])
+  }
+  return out
+}
+
+/** Safe message for API clients. Connection strings stay in the server log. */
+export function storageErrorMessage(err) {
+  const message = String(err?.message || '')
+  if (/MONGODB_URI is missing/.test(message)) return message
+  if (/JWT_SECRET/.test(message)) return message
+  if (/mongodb(\+srv)?:\/\//i.test(message) || /authentication failed/i.test(message)) {
+    return 'Database connection failed. Check MONGODB_URI (user, password, and database) on the API host.'
+  }
+  if (/ENOTFOUND|ECONNREFUSED|timed out|server selection|MongoServerSelection|MongoNetwork|MongoParse/i.test(message)) {
+    return 'Database connection failed. Check MONGODB_URI and Atlas Network Access (allow 0.0.0.0/0 so Vercel can connect). A paused free cluster can take a few seconds to wake.'
+  }
+  return 'Could not read or save CMS data.'
+}
+
 function createEmptyStore() {
   const initial = mergeDefaults(clone(DEFAULTS))
   initial.updatedAt = new Date().toISOString()
@@ -761,21 +794,23 @@ function createEmptyStore() {
 }
 
 /**
- * Async load via storage driver (json | blobs | mongodb).
- * One CMS document shape everywhere — switch CMS_STORAGE in server/.env only.
+ * Async load via storage driver (json | blobs | mongodb | memory).
+ * MongoDB reads the live document every call. Missing keys are filled in
+ * memory only — this function does not write back.
  */
 export async function loadStoreAsync() {
+  const { storageLoad, describeStorage, getStorageMode } = await import('./storage/index.js')
+  const mode = getStorageMode()
   try {
-    const { storageLoad, describeStorage, getStorageMode } = await import('./storage/index.js')
-    const mode = getStorageMode()
     const raw = await storageLoad(createEmptyStore)
-    memoryStore = mergeDefaults(raw)
+    memoryStore = mode === 'mongodb' ? fillMissing(raw, DEFAULTS) : mergeDefaults(raw)
     if (process.env.CMS_STORAGE_LOG === '1') {
       console.log(`[cms] storage=${mode} → ${describeStorage()}`)
     }
     return memoryStore
   } catch (err) {
-    console.warn('[cms] storage load failed:', err?.message || err)
+    console.error('[cms] storage load failed:', err?.message || err)
+    if (mode === 'mongodb') throw err
     if (memoryStore) return memoryStore
     if (!isLambda()) {
       try {
@@ -790,24 +825,35 @@ export async function loadStoreAsync() {
   }
 }
 
-/** Async save via the same storage driver; keeps warm memory cache. */
+/**
+ * Async save via the same storage driver.
+ * MongoDB failures throw so the API can return 500 instead of pretending the edit was stored.
+ */
 export async function saveStoreAsync(data) {
   data.updatedAt = new Date().toISOString()
-  memoryStore = data
+  const { storageSave, getStorageMode } = await import('./storage/index.js')
+  const mode = getStorageMode()
   try {
-    const { storageSave } = await import('./storage/index.js')
     await storageSave(data)
+    memoryStore = data
     return data
   } catch (err) {
-    console.warn('[cms] storage save failed:', err?.message || err)
-    if (!isLambda()) {
+    console.error('[cms] storage save failed:', err?.message || err)
+    if (mode === 'mongodb') throw err
+    if (!isLambda() && mode !== 'memory') {
       try {
-        return saveStore(data)
+        const saved = saveStore(data)
+        memoryStore = saved
+        return saved
       } catch (fsErr) {
         console.warn('[cms] filesystem save failed:', fsErr?.message || fsErr)
       }
     }
-    return data
+    if (mode === 'memory') {
+      memoryStore = data
+      return data
+    }
+    throw err
   }
 }
 

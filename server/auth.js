@@ -2,14 +2,29 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import crypto from 'crypto'
 
-function resolveJwtSecret() {
-  const fromEnv = process.env.JWT_SECRET?.trim()
-  if (fromEnv && fromEnv.length >= 24 && fromEnv !== 'gp-cms-dev-secret-change-me') {
-    return fromEnv
-  }
-  if (process.env.NETLIFY === 'true' || process.env.NODE_ENV === 'production') {
-    console.error(
-      '[security] JWT_SECRET is missing or weak. Set a long random JWT_SECRET in the environment.',
+const WEAK_SECRETS = new Set(['', 'gp-cms-dev-secret-change-me', 'change-me', 'secret'])
+
+function isHostedRuntime() {
+  return (
+    process.env.VERCEL === '1' ||
+    process.env.VERCEL === 'true' ||
+    process.env.NETLIFY === 'true' ||
+    process.env.NODE_ENV === 'production'
+  )
+}
+
+/**
+ * Read the signing key on every sign/verify. A secret captured once at import,
+ * or a random key stored only in process memory, makes tokens from one Vercel
+ * instance fail on the next instance.
+ */
+export function getJwtSecret() {
+  const fromEnv = process.env.JWT_SECRET?.trim() || ''
+  const strong = fromEnv.length >= 24 && !WEAK_SECRETS.has(fromEnv)
+  if (strong) return fromEnv
+  if (isHostedRuntime()) {
+    throw new Error(
+      'JWT_SECRET is missing or too short. Set JWT_SECRET on the API host to a random string of at least 32 characters. Admin sign-in stays disabled until then, because an in-memory secret is not shared across serverless instances.',
     )
   }
   if (!globalThis.__gpJwtDevSecret) {
@@ -19,12 +34,16 @@ function resolveJwtSecret() {
   return globalThis.__gpJwtDevSecret
 }
 
-const JWT_SECRET = resolveJwtSecret()
-const JWT_EXPIRY = process.env.JWT_EXPIRY || '4h'
-const BCRYPT_ROUNDS = 12
+function jwtExpiry() {
+  return process.env.JWT_EXPIRY || '4h'
+}
+
+function bcryptRounds() {
+  return process.env.NODE_ENV === 'test' ? 4 : 12
+}
 
 export async function hashPassword(password) {
-  return bcrypt.hash(password, BCRYPT_ROUNDS)
+  return bcrypt.hash(password, bcryptRounds())
 }
 
 export async function verifyPassword(password, hash) {
@@ -34,8 +53,8 @@ export async function verifyPassword(password, hash) {
 export function signToken(user) {
   return jwt.sign(
     { sub: user.id, email: user.email, role: user.role, name: user.name },
-    JWT_SECRET,
-    { expiresIn: JWT_EXPIRY },
+    getJwtSecret(),
+    { expiresIn: jwtExpiry() },
   )
 }
 
@@ -47,14 +66,18 @@ export function authMiddleware(req, res, next) {
     return
   }
   try {
-    const payload = jwt.verify(token, JWT_SECRET)
+    const payload = jwt.verify(token, getJwtSecret())
     if (!payload?.sub || !payload?.role) {
       res.status(401).json({ error: 'Invalid session.' })
       return
     }
     req.user = payload
     next()
-  } catch {
+  } catch (err) {
+    if (String(err?.message || '').includes('JWT_SECRET')) {
+      res.status(500).json({ error: err.message })
+      return
+    }
     res.status(401).json({ error: 'Session expired. Please sign in again.' })
   }
 }
@@ -69,8 +92,9 @@ export function requireRole(...roles) {
   }
 }
 
+/** Seed the two default accounts only when the user list is empty. Returns true if it wrote users. */
 export async function ensureDefaultUsers(store) {
-  if (store.users?.length) return store
+  if (store.users?.length) return false
 
   store.users = [
     {
@@ -92,7 +116,7 @@ export async function ensureDefaultUsers(store) {
       createdAt: '2026-01-01',
     },
   ]
-  return store
+  return true
 }
 
 export async function authenticateUser(store, email, password) {

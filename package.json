@@ -13,7 +13,8 @@
     "deploy": "netlify deploy --prod --build",
     "cms:status": "npm run cms:status --prefix server",
     "cms:export": "npm run cms:export --prefix server",
-    "cms:to-mongo": "npm run cms:to-mongo --prefix server"
+    "cms:to-mongo": "npm run cms:to-mongo --prefix server",
+    "test": "npm test --prefix server"
   },
   "dependencies": {
     "@netlify/blobs": "^10.0.11",
